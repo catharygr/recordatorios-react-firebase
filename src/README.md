@@ -1,4 +1,4 @@
-# Aplicación Recardatorio usando Vite
+# Aplicación Recardatorio sólo para móviles usando Vite
 
 ## React 18
 
