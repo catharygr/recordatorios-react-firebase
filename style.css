@@ -132,6 +132,18 @@ body {
     helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
     sans-serif;
 }
+.main-container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 412px;
+  background-color: var(--fondo-base);
+  height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
 /* Listas y recordatorios componentes de entradas */
 .lista-form-componente {
   display: grid;
@@ -149,6 +161,7 @@ body {
   height: 25px;
   border: 5px solid var(--fondo-base);
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .cancelar-delete-btn {
@@ -158,14 +171,6 @@ body {
 .lista-form--num-item {
   justify-self: end;
   font-size: 1.3rem;
-}
-
-.main-container {
-  position: relative;
-  margin: 0 auto;
-  max-width: 412px;
-  background-color: var(--fondo-base);
-  height: 100vh;
 }
 
 /* Barra superior de editar listas y ajustes */
@@ -180,11 +185,15 @@ body {
 .ajustes-container {
   position: absolute;
   inset: 0;
-  background-color: var(--fondo-contraste);
 }
 
-.lista-container--barra {
+.lista-container--barra,
+.ajuste-container--barra {
   padding: 1rem;
+  background-color: var(--fondo-contraste);
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .mis-listas,
@@ -193,7 +202,6 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   background-color: var(--fondo-base);
-  height: 100%;
   padding-top: 0.5rem;
 }
 
