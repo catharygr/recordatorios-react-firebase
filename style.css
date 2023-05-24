@@ -108,12 +108,108 @@ meter {
 /*   Mis estilos                       */
 /* *********************************** */
 
+/* Variables */
+
+:root {
+  --fondo-base: #222;
+  --fondo-contraste: #4e4e4e;
+  --letras: #ffffff;
+  --border-radius: 5px;
+}
+
+/* Letras */
+.listas-titulos {
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+}
+
+/* Estilos básicos */
 body {
-  background-color: brown;
+  background-color: #333;
+  color: var(--letras);
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+}
+/* Listas y recordatorios componentes de entradas */
+.lista-form-componente {
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  align-items: center;
+  background-color: var(--fondo-contraste);
+  margin-inline: 1rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.delete-btn,
+.cancelar-delete-btn {
+  width: 25px;
+  height: 25px;
+  border: 5px solid var(--fondo-base);
+  border-radius: 50%;
+}
+
+.cancelar-delete-btn {
+  background-color: red;
+}
+
+.lista-form--num-item {
+  justify-self: end;
+  font-size: 1.3rem;
 }
 
 .main-container {
+  position: relative;
   margin: 0 auto;
   max-width: 412px;
-  background-color: bisque;
+  background-color: var(--fondo-base);
+  height: 100vh;
+}
+
+/* Barra superior de editar listas y ajustes */
+.barraAjustes-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+}
+
+.listas-container,
+.ajustes-container {
+  position: absolute;
+  inset: 0;
+  background-color: var(--fondo-contraste);
+}
+
+.lista-container--barra {
+  padding: 1rem;
+}
+
+.mis-listas,
+.mis-ajustes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--fondo-base);
+  height: 100%;
+  padding-top: 0.5rem;
+}
+
+.mis-ajustes {
+  gap: 2rem;
+  padding: 4rem 2rem;
+  align-items: end;
+}
+
+.ajustes-container {
+  position: absolute;
+  inset: 0;
+  background-color: var(--fondo-contraste);
+}
+
+.ajuste-container--barra {
+  text-align: right;
+  padding: 1rem;
 }

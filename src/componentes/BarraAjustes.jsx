@@ -6,16 +6,23 @@ export default function BarraAjustes() {
   const [ajusteVisible, setAjusteVisible] = useState(false);
   const [editarListasVisible, setEditarListasVisible] = useState(false);
 
-  function ManejarVisibilidad(cualBoton) {}
+  function manejarVisibilidad(cualBoton) {
+    cualBoton === "listas" && setEditarListasVisible((oldValue) => !oldValue);
+    cualBoton === "ajustes" && setAjusteVisible((oldValue) => !oldValue);
+  }
 
   return (
-    <div className="barraAjustes-container">
-      <button onClick={() => ManejarVisibilidad("ajustes")}>Ajustes</button>
-      <button onClick={() => ManejarVisibilidad("listas")}>
-        Editar listas
-      </button>
-      {ajusteVisible && <Ajustes />}
-      {editarListasVisible && <EditarList />}
-    </div>
+    <>
+      <div className="barraAjustes-container">
+        <button onClick={() => manejarVisibilidad("listas")}>
+          Editar listas
+        </button>
+        <button onClick={() => manejarVisibilidad("ajustes")}>Ajustes</button>
+      </div>
+      {editarListasVisible && (
+        <EditarList manejarVisibilidad={manejarVisibilidad} />
+      )}
+      {ajusteVisible && <Ajustes manejarVisibilidad={manejarVisibilidad} />}
+    </>
   );
 }
