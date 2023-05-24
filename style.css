@@ -209,15 +209,15 @@ button {
   gap: 2rem;
   padding: 4rem 2rem;
   align-items: end;
+  background-color: var(--fondo-base);
 }
 
-.ajustes-container {
+/* .ajustes-container {
   position: absolute;
   inset: 0;
   background-color: var(--fondo-contraste);
-}
+} */
 
 .ajuste-container--barra {
   text-align: right;
-  padding: 1rem;
 }
