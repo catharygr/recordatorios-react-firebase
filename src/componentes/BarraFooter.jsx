@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Ajustes from "./Ajustes";
+import NuevoRecordatotio from "./NuevoRecordatorio";
 
 export default function BarraFooter() {
   const [nuevoRecordatorioVisible, setNuevoRecordatorioVisible] =
@@ -14,7 +14,7 @@ export default function BarraFooter() {
         <button onClick={manejarVisibilidad}>+Nuevo recordatorio</button>
       </footer>
       {nuevoRecordatorioVisible && (
-        <Ajustes manejarVisibilidad={manejarVisibilidad} />
+        <NuevoRecordatotio manejarVisibilidad={manejarVisibilidad} />
       )}
     </div>
   );

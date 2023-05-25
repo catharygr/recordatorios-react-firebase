@@ -181,7 +181,7 @@ button {
   justify-content: space-between;
   background-color: var(--fondo-contraste);
   padding: 1rem;
-  min-height: 50px;
+  height: 55px;
   position: sticky;
   top: 0;
   left: 0;
@@ -204,7 +204,8 @@ button {
 }
 
 .mis-listas,
-.mis-ajustes {
+.mis-ajustes,
+.lista-nuevo-recordatorio {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -217,7 +218,6 @@ button {
   gap: 2rem;
   padding: 4rem 2rem;
   align-items: end;
-  background-color: var(--fondo-base);
 }
 
 .ajuste-container--barra {
@@ -234,6 +234,40 @@ button {
   background-color: var(--fondo-contraste);
   padding: 1rem;
   min-height: 50px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.lista-nuevo-recordatorio {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+#titulo,
+#nota,
+#fecha,
+#hora,
+#seleccionar-lista,
+#marcado,
+#cargar-imagen {
+  background-color: var(--fondo-contraste);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-family: inherit;
+  border-radius: var(--border-radius);
+}
+
+#titulo,
+#nota,
+#fecha,
+#hora,
+#seleccionar-lista,
+#marcado,
+#cargar-imagen::placeholder {
+  color: aqua;
 }
 
 /* *********************************** */
