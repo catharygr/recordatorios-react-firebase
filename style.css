@@ -137,7 +137,7 @@ body {
   margin: 0 auto;
   max-width: 412px;
   background-color: var(--fondo-base);
-  height: 100vh;
+  height: 100dvh;
 }
 
 button {
@@ -172,13 +172,19 @@ button {
   justify-self: end;
   font-size: 1.3rem;
 }
+/* *********************************** */
+/* Barra Header de editar listas y ajustes */
+/* *********************************** */
 
-/* Barra superior de editar listas y ajustes */
-.barraAjustes-container {
+.barra-ajustes-container {
   display: flex;
   justify-content: space-between;
   background-color: var(--fondo-contraste);
   padding: 1rem;
+  min-height: 50px;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .listas-container,
@@ -192,6 +198,7 @@ button {
   padding: 1rem;
   background-color: var(--fondo-contraste);
   position: sticky;
+  height: 55px;
   top: 0;
   left: 0;
 }
@@ -203,6 +210,7 @@ button {
   gap: 0.5rem;
   background-color: var(--fondo-base);
   padding-top: 0.5rem;
+  min-height: calc(100dvh - 55px);
 }
 
 .mis-ajustes {
@@ -212,12 +220,22 @@ button {
   background-color: var(--fondo-base);
 }
 
-/* .ajustes-container {
-  position: absolute;
-  inset: 0;
-  background-color: var(--fondo-contraste);
-} */
-
 .ajuste-container--barra {
   text-align: right;
 }
+
+/* *********************************** */
+/* Barra Footer de editar listas y ajustes */
+/* *********************************** */
+
+.barra-footer-container {
+  display: flex;
+  justify-content: end;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  min-height: 50px;
+}
+
+/* *********************************** */
+/*   Home                              */
+/* *********************************** */
