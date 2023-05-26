@@ -113,7 +113,8 @@ meter {
 :root {
   --fondo-base: #222;
   --fondo-contraste: #4e4e4e;
-  --letras: #ffffff;
+  --color-acentado: #00ffff;
+  --color: #ffffff;
   --border-radius: 5px;
 }
 
@@ -127,7 +128,7 @@ meter {
 /* Estilos básicos */
 body {
   background-color: #333;
-  color: var(--letras);
+  color: var(--color);
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
     helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
     sans-serif;
@@ -244,6 +245,20 @@ button {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  gap: 0.7rem;
+}
+
+.form-elemento-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+}
+
+#titulo,
+#nota {
+  padding: 1rem;
 }
 
 #titulo,
@@ -254,10 +269,10 @@ button {
 #marcado,
 #cargar-imagen {
   background-color: var(--fondo-contraste);
-  padding: 0.5rem;
   margin-bottom: 1rem;
   font-family: inherit;
   border-radius: var(--border-radius);
+  margin: 0;
 }
 
 #titulo,
@@ -266,10 +281,82 @@ button {
 #hora,
 #seleccionar-lista,
 #marcado,
-#cargar-imagen::placeholder {
-  color: aqua;
+#cargar-imagen ::placeholder {
+  color: var(--color-acentado);
+}
+
+#marcado {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+  border: 2px solid var(--color);
+  border-radius: var(--border-radius);
+  display: grid;
+  place-content: center;
+  margin-right: 0.5rem;
+}
+
+#marcado::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1rem 1rem var(--color-acentado);
+}
+
+#marcado:checked::before {
+  transform: scale(1);
+}
+
+#hora::-webkit-calendar-picker-indicator,
+#fecha::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+}
+
+#cargar-imagen {
+  padding: 1rem;
 }
 
 /* *********************************** */
 /*   Home                              */
 /* *********************************** */
+
+.home-container {
+  padding: 0.5rem;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.tablero-tarjeta {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--fondo-contraste);
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  gap: 0.5rem;
+}
+
+.tablero-tarjeta--primera-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tablero-tarjeta--img {
+  height: 1.7rem;
+}
+
+.tablero-tarjeta--num {
+  font-size: 1.7rem;
+  color: red;
+  font-weight: 700;
+}
+
+.tablero-tarjeta--fecha {
+  font-size: 1.1rem;
+}
