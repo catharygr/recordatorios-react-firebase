@@ -239,6 +239,8 @@ button {
   bottom: 0;
   left: 0;
   width: 100%;
+  color: #05ff00;
+  font-size: 1.2rem;
 }
 
 .lista-nuevo-recordatorio {
