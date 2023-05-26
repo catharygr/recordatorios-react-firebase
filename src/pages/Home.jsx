@@ -23,7 +23,7 @@ export default function Home() {
           src="/assest/easy.png"
           alt="mujer con ordenador"
           num="14"
-          text="Prox 3 dias"
+          text="Próx 3 dias"
           date={false}
           color="#ff8A00"
         />
@@ -31,7 +31,7 @@ export default function Home() {
           src="/assest/relax.png"
           alt="persona de relax"
           num="28"
-          text="Prox 7 dias"
+          text="Próx 7 dias"
           date={false}
           color="#05ff00"
         />
