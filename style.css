@@ -329,7 +329,7 @@ button {
 .tablero {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .tablero-tarjeta {
@@ -353,7 +353,6 @@ button {
 
 .tablero-tarjeta--num {
   font-size: 1.7rem;
-  color: red;
   font-weight: 700;
 }
 
