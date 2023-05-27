@@ -12,11 +12,11 @@ export default function NuevoRecordatorio({ manejarVisibilidad }) {
         <textarea placeholder="Text area" id="nota" cols="3" />
         <div className="form-elemento-container">
           <label htmlFor="fecha">Fecha</label>
-          <input type="date" id="fecha" />
+          <input type="date" id="fecha" placeholder="Elegir la fecha" />
         </div>
         <div className="form-elemento-container">
           <label htmlFor="hora">Hora</label>
-          <input id="hora" type="time" />
+          <input id="hora" type="time" placeholder="Elegir la hora" />
         </div>
         <div className="form-elemento-container">
           <label htmlFor="seleccionar-lista">Seleccionar lista</label>
