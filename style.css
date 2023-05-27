@@ -139,6 +139,7 @@ body {
   max-width: 412px;
   background-color: var(--fondo-base);
   height: 100dvh;
+  overflow-y: scroll;
 }
 
 button {
@@ -182,30 +183,33 @@ button {
   justify-content: space-between;
   background-color: var(--fondo-contraste);
   padding: 1rem;
+  width: 100%;
   height: 55px;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
 }
 
 .listas-container,
 .ajustes-container {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  padding-top: 55px;
 }
 
 .lista-container--barra,
 .ajuste-container--barra {
   padding: 1rem;
   background-color: var(--fondo-contraste);
-  position: sticky;
+  position: fixed;
   height: 55px;
   top: 0;
   left: 0;
+  width: 100%;
 }
 
 .mis-listas,
-.mis-ajustes,
+.ajustes-listas,
 .lista-nuevo-recordatorio {
   display: flex;
   flex-direction: column;
@@ -215,7 +219,7 @@ button {
   min-height: calc(100dvh - 55px);
 }
 
-.mis-ajustes {
+.ajustes-listas {
   gap: 2rem;
   padding: 4rem 2rem;
   align-items: end;
@@ -226,8 +230,25 @@ button {
 }
 
 /* *********************************** */
-/* Barra Footer de editar listas y ajustes */
+/* Barra Footer de añadir recordatorio */
 /* *********************************** */
+
+.nuevo-recordatorio-container {
+  padding-top: 55px;
+  position: absolute;
+  inset: 0;
+}
+
+.nuevo-recordatorio-container--barra {
+  background-color: var(--fondo-contraste);
+  text-align: right;
+  padding: 1rem;
+  width: 100%;
+  height: 55px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
 .barra-footer-container {
   display: flex;
@@ -235,12 +256,13 @@ button {
   background-color: var(--fondo-contraste);
   padding: 1rem;
   min-height: 50px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   color: #05ff00;
   font-size: 1.2rem;
+  /* z-index: 1000; */
 }
 
 .lista-nuevo-recordatorio {
@@ -275,16 +297,27 @@ button {
   font-family: inherit;
   border-radius: var(--border-radius);
   margin: 0;
+  padding: 0.5rem;
 }
 
-#titulo,
-#nota,
 #fecha,
 #hora,
 #seleccionar-lista,
 #marcado,
-#cargar-imagen ::placeholder {
+#cargar-imagen {
   color: var(--color-acentado);
+}
+#fecha,
+#hora,
+#seleccionar-lista {
+  width: 10rem;
+  height: 2.4rem;
+  background-color: var(--fondo-base);
+}
+
+#titulo,
+#nota {
+  padding: 1rem;
 }
 
 #marcado {
@@ -324,8 +357,10 @@ button {
 /*   Home                              */
 /* *********************************** */
 
+/* Tablero */
+
 .home-container {
-  padding: 0.5rem;
+  padding: 65px 0.5rem;
 }
 
 .tablero {
@@ -360,4 +395,24 @@ button {
 
 .tablero-tarjeta--fecha {
   font-size: 1.1rem;
+}
+
+/* Listas */
+
+.home-lista-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+}
+
+.home-lista-tarjeta {
+  display: flex;
+  align-items: center;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.home-lista-tarjeta-num {
+  margin-left: auto;
 }

@@ -5,7 +5,7 @@ export default function Ajustes({ manejarVisibilidad }) {
       <div className="ajuste-container--barra">
         <button onClick={() => manejarVisibilidad("ajustes")}>Return</button>
       </div>
-      <div className="mis-ajustes">
+      <div className="ajustes-listas">
         <p>Modo claro</p>
         <p>Salir</p>
       </div>
