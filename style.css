@@ -115,6 +115,9 @@ meter {
   --fondo-contraste: #4e4e4e;
   --color-acentado: #00ffff;
   --color: #ffffff;
+  --color-red: #ff0000;
+  --color-orange: #ff8a00;
+  --color-green: #05ff00;
   --border-radius: 5px;
 }
 
@@ -133,20 +136,56 @@ body {
     helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
     sans-serif;
 }
+
+/* *********************************** */
+/* HomeLayout*/
+/* *********************************** */
 .main-container {
   position: relative;
   margin: 0 auto;
   max-width: 412px;
   background-color: var(--fondo-base);
   height: 100dvh;
-  overflow-y: scroll;
+  overflow: scroll;
 }
 
 button {
   cursor: pointer;
 }
 
-/* Listas y recordatorios componentes de entradas */
+/* *********************************** */
+/* BarraHeader  */
+/* *********************************** */
+
+.header-container {
+  position: fixed;
+  top: 0;
+  max-width: 412px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--fondo-contraste);
+  height: 3rem;
+}
+
+/* *********************************** */
+/* EditarLista Componente
+/* *********************************** */
+
+.editarlistas-container {
+  margin-block: 3rem 3.5rem;
+}
+.editarlista-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* *********************************** */
+/* EditarListaInput se ve en el EditarLista
+/* *********************************** */
 .lista-form-componente {
   display: grid;
   grid-template-columns: 40px auto 40px;
@@ -174,102 +213,55 @@ button {
   justify-self: end;
   font-size: 1.3rem;
 }
+
 /* *********************************** */
-/* Barra Header de editar listas y ajustes */
+/* Ajuste componente                   */
 /* *********************************** */
 
-.barra-ajustes-container {
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--fondo-contraste);
-  padding: 1rem;
-  width: 100%;
-  height: 55px;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.listas-container,
 .ajustes-container {
-  position: fixed;
-  inset: 0;
-  padding-top: 55px;
-}
-
-.lista-container--barra,
-.ajuste-container--barra {
-  padding: 1rem;
-  background-color: var(--fondo-contraste);
-  position: fixed;
-  height: 55px;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.mis-listas,
-.ajustes-listas,
-.lista-nuevo-recordatorio {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  background-color: var(--fondo-base);
-  padding-top: 0.5rem;
-  min-height: calc(100dvh - 55px);
-}
-
-.ajustes-listas {
-  gap: 2rem;
-  padding: 4rem 2rem;
   align-items: end;
+  gap: 2rem;
+  margin-block: 6rem 3rem;
+  padding-inline: 1rem;
 }
 
-.ajuste-container--barra {
-  text-align: right;
+.salir-btn {
+  color: var(--color-red);
 }
 
 /* *********************************** */
 /* Barra Footer de añadir recordatorio */
 /* *********************************** */
 
-.nuevo-recordatorio-container {
-  padding-top: 55px;
-  position: absolute;
-  inset: 0;
-}
-
-.nuevo-recordatorio-container--barra {
-  background-color: var(--fondo-contraste);
-  text-align: right;
-  padding: 1rem;
-  width: 100%;
-  height: 55px;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.barra-footer-container {
-  display: flex;
-  justify-content: end;
-  background-color: var(--fondo-contraste);
-  padding: 1rem;
-  min-height: 50px;
+.footer-container {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
-  color: #05ff00;
-  font-size: 1.2rem;
-  /* z-index: 1000; */
+  max-width: 412px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--fondo-contraste);
+  height: 3rem;
+  color: var(--color-acentado);
+}
+
+/* *********************************** */
+/* Nuevo recordatorio formulario */
+/* *********************************** */
+
+.nuevo-recordatorio-container {
+  margin-block: 4rem;
+  padding: 1rem;
 }
 
 .lista-nuevo-recordatorio {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  gap: 0.7rem;
+  gap: 0.5rem;
 }
 
 .form-elemento-container {
@@ -357,12 +349,18 @@ button {
 /*   Home                              */
 /* *********************************** */
 
-/* Tablero */
-
 .home-container {
-  padding: 65px 0.5rem;
+  padding: 0.5rem;
+  margin-block: 3rem;
 }
 
+.home-lista-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+}
+
+/* Tablero */
 .tablero {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -397,13 +395,9 @@ button {
   font-size: 1.1rem;
 }
 
-/* Listas */
-
-.home-lista-container {
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem 1rem;
-}
+/* *********************************** */
+/*   HomeListaTarjeta                             */
+/* *********************************** */
 
 .home-lista-tarjeta {
   display: flex;

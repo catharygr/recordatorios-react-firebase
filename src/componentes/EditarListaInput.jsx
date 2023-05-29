@@ -1,4 +1,4 @@
-export default function Listainput() {
+export default function EditarListainput() {
   return (
     <div className="lista-form-componente">
       <button className="delete-btn cancelar-delete-btn"></button>

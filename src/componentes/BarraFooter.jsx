@@ -1,21 +1,11 @@
-import { useState } from "react";
-import NuevoRecordatotio from "./NuevoRecordatorio";
+import { Link } from "react-router-dom";
 
 export default function BarraFooter() {
-  const [nuevoRecordatorioVisible, setNuevoRecordatorioVisible] =
-    useState(false);
-
-  function manejarVisibilidad() {
-    setNuevoRecordatorioVisible((oldValue) => !oldValue);
-  }
   return (
     <div>
-      <footer className="barra-footer-container">
-        <button onClick={manejarVisibilidad}>+Nuevo recordatorio</button>
+      <footer className="footer-container">
+        <Link to="nuevo-recordatorio">+ Nuevo recordatorio</Link>
       </footer>
-      {nuevoRecordatorioVisible && (
-        <NuevoRecordatotio manejarVisibilidad={manejarVisibilidad} />
-      )}
     </div>
   );
 }

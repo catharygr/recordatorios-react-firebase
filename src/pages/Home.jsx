@@ -10,7 +10,7 @@ export default function Home() {
           num="3"
           text="Fecha: 26/05/23"
           date={true}
-          color="#ff0000"
+          color="var(--color-red)"
         />
         <TableroTarjeta
           src="/assets/bandera.png"
@@ -18,7 +18,7 @@ export default function Home() {
           num="7"
           text="Marcado"
           date={false}
-          color=""
+          color="var(--color)"
         />
         <TableroTarjeta
           src="/assets/easy.png"
@@ -26,7 +26,7 @@ export default function Home() {
           num="14"
           text="Próx 3 dias"
           date={false}
-          color="#ff8A00"
+          color="var(--color-orange)"
         />
         <TableroTarjeta
           src="/assets/relax.png"
@@ -34,7 +34,7 @@ export default function Home() {
           num="28"
           text="Próx 7 dias"
           date={false}
-          color="#05ff00"
+          color="var(--color-green)"
         />
       </div>
       <section className="home-lista-container">
