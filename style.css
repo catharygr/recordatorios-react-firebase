@@ -241,7 +241,7 @@ button {
   width: 100%;
   max-width: 412px;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   padding: 1rem;
   background-color: var(--fondo-contraste);

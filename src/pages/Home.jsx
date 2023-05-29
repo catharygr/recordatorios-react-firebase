@@ -1,6 +1,20 @@
+import { onValue } from "firebase/database";
 import HomeListaTarjeta from "../componentes/HomeListaTarjeta";
 import TableroTarjeta from "../componentes/TableroTarjeta";
+import { listasEnDB } from "../scripts/firebase";
+import { useEffect, useState } from "react";
+
 export default function Home() {
+  const [listas, setListas] = useState([]);
+  useEffect(() => {
+    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+      setListas(Object.entries(snapshot.val()));
+    });
+    return cancelOnValue;
+  }, []);
+  const mapeo = listas.map((lista) => (
+    <HomeListaTarjeta key={lista[0]} lista={lista} />
+  ));
   return (
     <main className="home-container">
       <div className="tablero">
@@ -15,6 +29,7 @@ export default function Home() {
         <TableroTarjeta
           src="/assets/bandera.png"
           alt="bandera"
+          q
           num="7"
           text="Marcado"
           date={false}
@@ -37,17 +52,10 @@ export default function Home() {
           color="var(--color-green)"
         />
       </div>
+
       <section className="home-lista-container">
         <h2 className="listas-titulos">Mis listas</h2>
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
-        <HomeListaTarjeta />
+        {mapeo}
       </section>
     </main>
   );
