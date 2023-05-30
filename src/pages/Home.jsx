@@ -8,7 +8,11 @@ export default function Home() {
   const [listas, setListas] = useState([]);
   useEffect(() => {
     const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      setListas(Object.entries(snapshot.val()));
+      if (snapshot.val()) {
+        setListas(Object.entries(snapshot.val()));
+      } else {
+        setListas([]);
+      }
     });
     return cancelOnValue;
   }, []);

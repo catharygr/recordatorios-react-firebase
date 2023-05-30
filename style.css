@@ -405,8 +405,11 @@ button {
   background-color: var(--fondo-contraste);
   padding: 1rem;
   border-radius: var(--border-radius);
+  gap: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .home-lista-tarjeta-num {
   margin-left: auto;
+  font-size: 1.5rem;
 }
