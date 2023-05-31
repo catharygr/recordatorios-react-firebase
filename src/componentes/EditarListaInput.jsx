@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ export default function EditarListainput({
   const oldNombre = lista[1].nombre;
 
   const [nombreLista, setNombreLista] = useState(oldNombre);
-  const [seEstaBorrando, setSeEstaBorrada] = useState(false);
+  const [seEstaBorrando, setSeEstaBorrando] = useState(false);
 
   let numRecordatorio = lista[1].recordatorios
     ? Object.keys(lista[1]?.recordatorios).length
@@ -32,6 +33,10 @@ export default function EditarListainput({
 
   // Handle aplazar
   useEffect(() => {
+    if (!seEstaBorrando) {
+      return;
+    }
+
     const cancelarTimeOut = setTimeout(() => borrarLista(id), 3000);
 
     return () => clearTimeout(cancelarTimeOut);
@@ -42,7 +47,7 @@ export default function EditarListainput({
   return (
     <div className="lista-form-componente">
       <button
-        onClick={() => setSeEstaBorrada(!seEstaBorrando)}
+        onClick={() => setSeEstaBorrando(!seEstaBorrando)}
         className={`${btnRedCancelar}delete-btn`}
       ></button>
       <input type="text" value={nombreLista} onChange={handleListaNombre} />

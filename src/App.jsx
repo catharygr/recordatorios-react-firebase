@@ -5,16 +5,18 @@ import Home from "./pages/Home";
 import EditarListas from "./pages/Editarlistas";
 import Ajustes from "./pages/Ajustes";
 import NuevoRecordatorio from "./pages/NuevoRecordatorio";
+import DetallesLista from "./pages/DetallesLista";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<HomeLayout />}>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<Home />} />
           <Route path="editar-lista" element={<EditarListas />} />
           <Route path="ajustes" element={<Ajustes />} />
           <Route path="nuevo-recordatorio" element={<NuevoRecordatorio />} />
+          <Route path="lista/:id" element={<DetallesLista />} />
         </Route>
       </Routes>
     </BrowserRouter>
