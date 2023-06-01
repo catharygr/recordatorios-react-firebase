@@ -1,18 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { imagesRef } from "../scripts/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 /* eslint-disable react/prop-types */
 export default function NuevoRecordatorio() {
+  const [imagenSelec, setImagenSelec] = useState(null);
+
   const [form, setForm] = useState({
     titulo: "",
     nota: "",
     fecha: "",
     hora: "",
     seleccionarLista: "",
-    marcado: true,
+    marcado: false,
   });
+
   function handleForm(e) {
-    e.preventDefault();
+    const { name, value, checked, type } = e.target;
+
+    setForm((olddata) => ({
+      ...olddata,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    console.log(name, value);
   }
+
+  function handleSelecImagen(e) {
+    setImagenSelec(e.target.files[0]);
+  }
+
+  useEffect(() => {
+    if (!imagenSelec) return;
+    const fileRef = ref(imagesRef, imagenSelec?.name);
+    const fileUrl = fileRef.fullPath;
+    uploadBytes(imagesRef, imagenSelec).then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    });
+    console.log(fileUrl);
+  }, [imagenSelec]);
+
   return (
     <div className="nuevo-recordatorio-container">
       <form className="lista-nuevo-recordatorio">
@@ -32,6 +59,20 @@ export default function NuevoRecordatorio() {
           onChange={handleForm}
           value={form.nota}
         />
+        <div className="form-elemento-container">
+          <label htmlFor="seleccionar-lista">Seleccionar lista</label>
+          <select
+            name="sellecionarLista"
+            id="seleccionar-lista"
+            onChange={handleForm}
+            value={form.seleccionarLista}
+          >
+            <option value="Supermecado">Supermecado</option>
+            <option value="Supermecado">Supermecado</option>
+            <option value="Supermecado">Supermecado</option>
+            <option value="Supermecado">Supermecado</option>
+          </select>
+        </div>
 
         <div className="form-elemento-container">
           <label htmlFor="fecha">Elegir fecha</label>
@@ -56,21 +97,6 @@ export default function NuevoRecordatorio() {
         </div>
 
         <div className="form-elemento-container">
-          <label htmlFor="seleccionar-lista">Seleccionar lista</label>
-          <select
-            name="sellecionarLista"
-            id="seleccionar-lista"
-            onChange={handleForm}
-            value={form.seleccionarLista}
-          >
-            <option value="Supermecado">Supermecado</option>
-            <option value="Supermecado">Supermecado</option>
-            <option value="Supermecado">Supermecado</option>
-            <option value="Supermecado">Supermecado</option>
-          </select>
-        </div>
-
-        <div className="form-elemento-container">
           <label htmlFor="marcado">Marcado</label>
           <input
             id="marcado"
@@ -86,7 +112,7 @@ export default function NuevoRecordatorio() {
           id="cargar-imagen"
           type="file"
           name="cargarImagen"
-          value={form.cargarImagen}
+          onChange={handleSelecImagen}
         />
       </form>
     </div>
