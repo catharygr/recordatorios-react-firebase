@@ -9,7 +9,7 @@ export default function BarraFooter() {
       recordatorios: {},
     });
   }
-  console.log(listasEnDB);
+
   return (
     <div>
       <footer className="footer-container">

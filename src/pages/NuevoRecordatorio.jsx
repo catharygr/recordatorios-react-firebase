@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { imagesRef } from "../scripts/storage";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 /* eslint-disable react/prop-types */
 export default function NuevoRecordatorio() {
@@ -14,31 +13,38 @@ export default function NuevoRecordatorio() {
     hora: "",
     seleccionarLista: "",
     marcado: false,
+    imageUrl: "",
   });
-
+  // Manehar formulario y su State via onChange
   function handleForm(e) {
     const { name, value, checked, type } = e.target;
 
-    setForm((olddata) => ({
-      ...olddata,
+    setForm((oldData) => ({
+      ...oldData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    console.log(name, value);
   }
-
+  //Guardar la imagen seleccionada en imagenSelec
   function handleSelecImagen(e) {
     setImagenSelec(e.target.files[0]);
   }
-
+  // al seleccionar imagen subirla a firebase Storage
   useEffect(() => {
     if (!imagenSelec) return;
+
     const fileRef = ref(imagesRef, imagenSelec?.name);
-    const fileUrl = fileRef.fullPath;
-    uploadBytes(imagesRef, imagenSelec).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
+
+    uploadBytes(fileRef, imagenSelec).then(() => {
+      getDownloadURL(fileRef).then((url) => {
+        setForm((oldData) => ({
+          ...oldData,
+          imageUrl: url,
+        }));
+      });
     });
-    console.log(fileUrl);
   }, [imagenSelec]);
+
+  console.log(form.imageUrl);
 
   return (
     <div className="nuevo-recordatorio-container">
@@ -62,7 +68,7 @@ export default function NuevoRecordatorio() {
         <div className="form-elemento-container">
           <label htmlFor="seleccionar-lista">Seleccionar lista</label>
           <select
-            name="sellecionarLista"
+            name="seleccionarLista"
             id="seleccionar-lista"
             onChange={handleForm}
             value={form.seleccionarLista}
