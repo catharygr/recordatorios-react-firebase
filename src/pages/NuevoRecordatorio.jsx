@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
+import { listasEnDB, db } from "../scripts/firebase";
+import { onValue, ref as refDB, update, push, child } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { onValue, update } from "firebase/database";
-import { listasEnDB } from "../scripts/firebase";
 
-/* eslint-disable react/prop-types */
 export default function NuevoRecordatorio() {
   const [imagenSelec, setImagenSelec] = useState(null);
   const [listas, setListas] = useState([]);
@@ -66,7 +66,20 @@ export default function NuevoRecordatorio() {
     </option>
   ));
 
-  function handleGuardarRecordatorio() {}
+  // function handleGuardarRecordatorio() {
+  //   update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
+  //   // const newPostKey = push(child(listasEnDB, form.selectList + "items")).key;
+  // }
+
+  function handleGuardarRecordatorio() {
+    const newPostKey = push(
+      child(listasEnDB, `${form.seleccionarLista}/items`)
+    ).key;
+    const updates = {};
+    console.log(updates);
+    updates[`${form.seleccionarLista}/items/${newPostKey}`] = form;
+    update(refDB(db), updates);
+  }
 
   return (
     <div className="nuevo-recordatorio-container">
