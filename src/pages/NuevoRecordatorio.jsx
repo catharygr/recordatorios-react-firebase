@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { onValue, update } from "firebase/database";
+import { listasEnDB } from "../scripts/firebase";
 
 /* eslint-disable react/prop-types */
 export default function NuevoRecordatorio() {
   const [imagenSelec, setImagenSelec] = useState(null);
+  const [listas, setListas] = useState([]);
 
   const [form, setForm] = useState({
     titulo: "",
@@ -15,7 +18,7 @@ export default function NuevoRecordatorio() {
     marcado: false,
     imageUrl: "",
   });
-  // Manehar formulario y su State via onChange
+  // Manejar formulario y su State via onChange
   function handleForm(e) {
     const { name, value, checked, type } = e.target;
 
@@ -28,7 +31,8 @@ export default function NuevoRecordatorio() {
   function handleSelecImagen(e) {
     setImagenSelec(e.target.files[0]);
   }
-  // al seleccionar imagen subirla a firebase Storage
+  // Al seleccionar imagen subirla a firebase Storage
+  // Obtener el URl de descarga y gurdarlo en el state del recordatorio
   useEffect(() => {
     if (!imagenSelec) return;
 
@@ -44,19 +48,42 @@ export default function NuevoRecordatorio() {
     });
   }, [imagenSelec]);
 
-  console.log(form.imageUrl);
+  // Obtener los nombres de las listas para mapear para el elemento selección de formulario
+  useEffect(() => {
+    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+      if (snapshot.val()) {
+        setListas(Object.entries(snapshot.val()));
+      } else {
+        setListas([]);
+      }
+    });
+    return cancelOnValue;
+  }, []);
+  // Obtener listado de nombre de las listas para opciones en selección
+  const mapeoSeleccOpccion = listas.map((lista) => (
+    <option key={lista[0]} value={lista[0]}>
+      {lista[1].nombre}
+    </option>
+  ));
+
+  function handleGuardarRecordatorio() {}
 
   return (
     <div className="nuevo-recordatorio-container">
-      <form className="lista-nuevo-recordatorio">
+      <div className="lista-nuevo-recordatorio">
         <label htmlFor="titulo">Titulo</label>
-        <input
-          id="titulo"
-          type="text"
-          onChange={handleForm}
-          name="titulo"
-          value={form.titulo}
-        />
+        <div className="titulo-btn-container">
+          <input
+            id="titulo"
+            type="text"
+            onChange={handleForm}
+            name="titulo"
+            value={form.titulo}
+          />
+          <button onClick={handleGuardarRecordatorio} className="btn-guardar">
+            Guardar
+          </button>
+        </div>
         <label htmlFor="nota">Nota</label>
         <textarea
           id="nota"
@@ -73,10 +100,7 @@ export default function NuevoRecordatorio() {
             onChange={handleForm}
             value={form.seleccionarLista}
           >
-            <option value="Supermecado">Supermecado</option>
-            <option value="Supermecado">Supermecado</option>
-            <option value="Supermecado">Supermecado</option>
-            <option value="Supermecado">Supermecado</option>
+            {mapeoSeleccOpccion}
           </select>
         </div>
 
@@ -120,7 +144,7 @@ export default function NuevoRecordatorio() {
           name="cargarImagen"
           onChange={handleSelecImagen}
         />
-      </form>
+      </div>
     </div>
   );
 }

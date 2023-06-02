@@ -272,9 +272,29 @@ button {
   padding: 1rem;
 }
 
+.titulo-btn-container {
+  display: flex;
+}
+
+.btn-guardar {
+  padding-inline: 2rem;
+  background-color: var(--color-orange);
+  color: var(--fondo-base);
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  transition: color ease-in-out 120ms;
+}
+
+.btn-guardar:hover {
+  color: var(--color);
+}
+
 #titulo,
 #nota {
   padding: 1rem;
+  width: 100%;
 }
 
 #titulo,
@@ -290,6 +310,10 @@ button {
   border-radius: var(--border-radius);
   margin: 0;
   padding: 0.5rem;
+}
+#titulo {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #fecha,
