@@ -66,18 +66,13 @@ export default function NuevoRecordatorio() {
     </option>
   ));
 
-  // function handleGuardarRecordatorio() {
-  //   update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
-  //   // const newPostKey = push(child(listasEnDB, form.selectList + "items")).key;
-  // }
-
   function handleGuardarRecordatorio() {
     const newPostKey = push(
-      child(listasEnDB, `${form.seleccionarLista}/items`)
+      child(listasEnDB, `listas/${form.seleccionarLista}/items`)
     ).key;
     const updates = {};
     console.log(updates);
-    updates[`${form.seleccionarLista}/items/${newPostKey}`] = form;
+    updates[`listas/${form.seleccionarLista}/items/${newPostKey}`] = form;
     update(refDB(db), updates);
   }
 
