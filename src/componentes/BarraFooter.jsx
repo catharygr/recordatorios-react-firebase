@@ -6,7 +6,7 @@ export default function BarraFooter() {
   function handleNuevaLista() {
     push(listasEnDB, {
       nombre: "Nueva lista",
-      recordatorios: {},
+      usuarioId: "",
     });
   }
 
