@@ -460,11 +460,11 @@ button {
   border-radius: var(--border-radius);
   display: grid;
   grid-template-columns: 40px auto 40px;
-  justify-self: center;
-  gap: 1rem;
+  align-items: center;
+
   padding: 1rem;
 }
 
 .tarjeta-recordatorio-img {
-  margin-left: auto;
+  justify-self: center;
 }

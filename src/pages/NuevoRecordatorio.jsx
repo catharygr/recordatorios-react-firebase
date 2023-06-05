@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listasEnDB, db, recordatorioEnDB } from "../scripts/firebase";
-import { onValue, ref as refDB, update, push, child } from "firebase/database";
+import { listasEnDB, recordatorioEnDB } from "../scripts/firebase";
+import { onValue, push } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
 export default function NuevoRecordatorio() {
   const [imagenSelec, setImagenSelec] = useState(null);
@@ -19,6 +20,7 @@ export default function NuevoRecordatorio() {
     marcado: false,
     imageUrl: "",
   });
+  const navegate = useNavigate();
   // Manejar formulario y su State via onChange
   function handleForm(e) {
     const { name, value, checked, type } = e.target;
@@ -68,7 +70,7 @@ export default function NuevoRecordatorio() {
   ));
 
   function handleGuardarRecordatorio() {
-    push(recordatorioEnDB, form);
+    push(recordatorioEnDB, form).then(navegate(`/lista/${form.listaId}`));
   }
 
   return (
