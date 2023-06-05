@@ -1,19 +1,12 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import TarjetaRecordatorio from "../componentes/TarjetaRecodatorio";
-import { useState, useEffect, useContext } from "react";
-import { recordatorioEnDB } from "../scripts/firebase";
-import { onValue } from "firebase/database";
-import { MisListaContext } from "../scripts/DataContext";
+
+import { useContext } from "react";
+
+import { MisRecordatioContext } from "../scripts/DataContext";
 
 export default function DetallesLista() {
-  const [listaRecordatorios, setListaRecordatorios] = useState([]);
-  // const listasConsumer = useContext(MisListaContext);
-
-  const params = useParams();
-
-  // const findLista = listasConsumer.find((lista) => lista[0] === params.id);
-  // const nombreLista = findLista[1].nombre;
-  // const IdLista = findLista[0];
+  const listaRecordatorios = useContext(MisRecordatioContext);
 
   const mapeo = listaRecordatorios.map((recordatorio) => (
     <TarjetaRecordatorio
