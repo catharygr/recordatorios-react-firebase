@@ -1,29 +1,20 @@
 import { Outlet, useParams } from "react-router-dom";
 import TarjetaRecordatorio from "../componentes/TarjetaRecodatorio";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { recordatorioEnDB } from "../scripts/firebase";
 import { onValue } from "firebase/database";
+import { MisListaContext } from "../scripts/DataContext";
 
 export default function DetallesLista() {
   const [listaRecordatorios, setListaRecordatorios] = useState([]);
-  console.log(listaRecordatorios);
+  // const listasConsumer = useContext(MisListaContext);
 
   const params = useParams();
 
-  useEffect(() => {
-    const cancelOnValue = onValue(recordatorioEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        const recordatorios = Object.entries(snapshot.val());
-        const filtrar = recordatorios.filter(
-          (recordatorio) => recordatorio[1].listaId === params.id
-        );
-        setListaRecordatorios(filtrar);
-      } else {
-        setListaRecordatorios([]);
-      }
-    });
-    return cancelOnValue;
-  }, [params.id]);
+  // const findLista = listasConsumer.find((lista) => lista[0] === params.id);
+  // const nombreLista = findLista[1].nombre;
+  // const IdLista = findLista[0];
+
   const mapeo = listaRecordatorios.map((recordatorio) => (
     <TarjetaRecordatorio
       key={recordatorio[0]}
@@ -34,7 +25,8 @@ export default function DetallesLista() {
 
   return (
     <section className="detalle-lista">
-      <h2 className="listas-titulos">Nombre de la lista</h2>
+      <h2 className="listas-titulos">Supermercado</h2>
+
       {mapeo}
       <Outlet />
     </section>

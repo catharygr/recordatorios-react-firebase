@@ -1,21 +1,12 @@
-import { onValue } from "firebase/database";
 import HomeListaTarjeta from "../componentes/HomeListaTarjeta";
 import TableroTarjeta from "../componentes/TableroTarjeta";
-import { listasEnDB } from "../scripts/firebase";
-import { useEffect, useState } from "react";
+
+import { useContext } from "react";
+import { MisListaContext } from "../scripts/DataContext";
 
 export default function Home() {
-  const [listas, setListas] = useState([]);
-  useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setListas(Object.entries(snapshot.val()));
-      } else {
-        setListas([]);
-      }
-    });
-    return cancelOnValue;
-  }, []);
+  const listas = useContext(MisListaContext);
+
   const mapeo = listas.map((lista) => (
     <HomeListaTarjeta key={lista[0]} lista={lista} />
   ));

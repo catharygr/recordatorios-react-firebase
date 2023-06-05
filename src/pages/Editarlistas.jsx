@@ -1,22 +1,12 @@
 /* eslint-disable react/prop-types */
 import EditarListainput from "../componentes/EditarListaInput";
-import { useEffect, useState } from "react";
-import { onValue, ref, update, remove } from "firebase/database";
-import { listasEnDB, db } from "../scripts/firebase";
+import { MisListaContext } from "../scripts/DataContext";
+import { useContext } from "react";
+import { remove, update, ref } from "firebase/database";
+import { db } from "../scripts/firebase";
 
 export default function EditarListas() {
-  const [listas, setListas] = useState([]);
-
-  useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setListas(Object.entries(snapshot.val()));
-      } else {
-        setListas([]);
-      }
-    });
-    return cancelOnValue;
-  }, []);
+  const listas = useContext(MisListaContext);
 
   function handleNuevoNombre(id, nuevoNombre) {
     const actualizar = {};
