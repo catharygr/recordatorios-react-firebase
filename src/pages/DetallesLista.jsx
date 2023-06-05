@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import TarjetaRecordatorio from "../componentes/TarjetaRecodatorio";
 import { useState, useEffect } from "react";
 import { recordatorioEnDB } from "../scripts/firebase";
@@ -36,6 +36,7 @@ export default function DetallesLista() {
     <section className="detalle-lista">
       <h2 className="listas-titulos">Nombre de la lista</h2>
       {mapeo}
+      <Outlet />
     </section>
   );
 }

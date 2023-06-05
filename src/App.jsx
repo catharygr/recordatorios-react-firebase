@@ -6,6 +6,7 @@ import EditarListas from "./pages/Editarlistas";
 import Ajustes from "./pages/Ajustes";
 import NuevoRecordatorio from "./pages/NuevoRecordatorio";
 import DetallesLista from "./pages/DetallesLista";
+import DetallesRecordatorio from "./pages/DetallesRecordatorio";
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
           <Route path="editar-lista" element={<EditarListas />} />
           <Route path="ajustes" element={<Ajustes />} />
           <Route path="nuevo-recordatorio" element={<NuevoRecordatorio />} />
-          <Route path="lista/:id" element={<DetallesLista />} />
+          <Route path="lista/:id" element={<DetallesLista />}>
+            <Route path="recordatorio/:id" element={<DetallesRecordatorio />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

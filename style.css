@@ -459,12 +459,19 @@ button {
   background-color: var(--fondo-contraste);
   border-radius: var(--border-radius);
   display: grid;
-  grid-template-columns: 40px auto 40px;
+  grid-template-columns: 40px auto 40px 40px;
   align-items: center;
 
   padding: 1rem;
 }
 
-.tarjeta-recordatorio-img {
-  justify-self: center;
+.tarjeta-recordatorio-marcado {
+  justify-self: end;
+  grid-column: -2/-3;
+}
+
+.tarjeta-recordatorio-flecha {
+  justify-self: end;
+  grid-column: -1/-2;
+  width: 30px;
 }
