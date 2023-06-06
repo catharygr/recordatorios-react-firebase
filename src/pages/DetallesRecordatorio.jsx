@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { listasEnDB, recordatorioEnDB } from "../scripts/firebase";
-import { ref as refDB, onValue, update } from "firebase/database";
+import { onValue, update } from "firebase/database";
 import { ref as refST, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
 import { MisRecordatioContext } from "../scripts/DataContext";
@@ -149,6 +149,7 @@ export default function DetallesRecordatorio() {
         </div>
 
         <label htmlFor="cargar-imagen">Cargar imagen</label>
+        {form.imageUrl !== "" && <img src={form.imageUrl} alt="" />}
         <input
           id="cargar-imagen"
           type="file"
