@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import TarjetaRecordatorio from "../componentes/TarjetaRecodatorio";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
@@ -24,7 +23,6 @@ export default function DetallesLista() {
       <h2 className="listas-titulos">Supermercado</h2>
 
       {mapeo}
-      <Outlet />
     </section>
   );
 }

@@ -17,7 +17,7 @@ export default function TarjetaRecordatorio({ data, id }) {
           alt="Bandera"
         />
       )}
-      <Link to={`recordatorio/${id}`} className="tarjeta-recordatorio-flecha">
+      <Link to={`/recordatorio/${id}`} className="tarjeta-recordatorio-flecha">
         <img src="/assets/flecha-derecha.png" alt="Flecha" />
       </Link>
     </div>
