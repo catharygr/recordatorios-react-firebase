@@ -51,6 +51,17 @@ export default function DetallesRecordatorio() {
     });
   }, [imagenSelec]);
 
+  function HandleBorrarImg() {
+    const fileRef = ref(imagesRef, form.imagenName);
+    deleteObject(fileRef).then(
+      setForm((oldData) => ({
+        ...oldData,
+        imageUrl: "",
+        imagenName: "",
+      }))
+    );
+  }
+
   // Obtener listado de nombre de las listas para opciones en selección
   const mapeoSeleccOpccion = listaContexto.map((lista) => (
     <option key={lista[0]} value={lista[0]}>
@@ -138,13 +149,19 @@ export default function DetallesRecordatorio() {
 
         <label htmlFor="cargar-imagen">Cargar imagen</label>
         {form.imageUrl !== "" && <img src={form.imageUrl} alt="" />}
-        <input
-          id="cargar-imagen"
-          type="file"
-          accept="image/*"
-          name="cargarImagen"
-          onChange={handleSelecImagen}
-        />
+        {!form.imageUrl ? (
+          <input
+            id="cargar-imagen"
+            type="file"
+            accept="image/*"
+            name="cargarImagen"
+            onChange={handleSelecImagen}
+          />
+        ) : (
+          <button onClick={HandleBorrarImg} className="borrar-img">
+            Borrar Img
+          </button>
+        )}
       </div>
     </div>
   );
