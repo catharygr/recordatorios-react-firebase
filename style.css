@@ -250,7 +250,7 @@ button {
 }
 
 /* *********************************** */
-/* Nuevo recordatorio formulario */
+/* nuevoRecordatorio y DetalleRecordatorio */
 /* *********************************** */
 
 .nuevo-recordatorio-container {
@@ -288,6 +288,27 @@ button {
 }
 
 .btn-guardar:hover {
+  color: var(--color);
+}
+
+.btn-guardar:disabled {
+  background-color: var(--fondo-base);
+  color: var(--color-acentado);
+  font-size: 0.8rem;
+  border: 2px solid var(--fondo-contraste);
+}
+
+.borrar-img {
+  background-color: var(--fondo-contraste);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  align-self: start;
+  margin-block: 1rem;
+  color: var(--color-red);
+  font-weight: 600;
+}
+
+.borrar-img:hover {
   color: var(--color);
 }
 

@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listasEnDB, recordatorioEnDB } from "../scripts/firebase";
-import { onValue, push } from "firebase/database";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { recordatorioEnDB } from "../scripts/firebase";
+import { push } from "firebase/database";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { MisListaContext } from "../scripts/DataContext";
 
 export default function NuevoRecordatorio() {
+  const listaContexto = useContext(MisListaContext);
   const [imagenSelec, setImagenSelec] = useState(null);
-  const [listas, setListas] = useState([]);
-
   const [form, setForm] = useState({
     usuarioId: "",
     listaId: "",
@@ -19,7 +24,15 @@ export default function NuevoRecordatorio() {
     hora: "",
     marcado: false,
     imageUrl: "",
+    imagenName: "",
   });
+  // Activar o desactivar el boton basado si la lista está selecionada
+  const estaSeleccionadaLalista = useRef(false);
+  form.listaId
+    ? (estaSeleccionadaLalista.current = true)
+    : (estaSeleccionadaLalista.current = false);
+
+  // console.log(form);
   const navegate = useNavigate();
   // Manejar formulario y su State via onChange
   function handleForm(e) {
@@ -46,24 +59,25 @@ export default function NuevoRecordatorio() {
         setForm((oldData) => ({
           ...oldData,
           imageUrl: url,
+          imagenName: imagenSelec?.name,
         }));
       });
     });
   }, [imagenSelec]);
 
-  // Obtener los nombres de las listas para mapear para el elemento selección de formulario
-  useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setListas(Object.entries(snapshot.val()));
-      } else {
-        setListas([]);
-      }
-    });
-    return cancelOnValue;
-  }, []);
+  function HandleBorrarImg() {
+    const fileRef = ref(imagesRef, form.imagenName);
+    deleteObject(fileRef).then(
+      setForm((oldData) => ({
+        ...oldData,
+        imageUrl: "",
+        imagenName: "",
+      }))
+    );
+  }
+
   // Obtener listado de nombre de las listas para opciones en selección
-  const mapeoSeleccOpccion = listas.map((lista) => (
+  const mapeoSeleccOpccion = listaContexto.map((lista) => (
     <option key={lista[0]} value={lista[0]}>
       {lista[1].nombre}
     </option>
@@ -85,8 +99,12 @@ export default function NuevoRecordatorio() {
             name="titulo"
             value={form.titulo}
           />
-          <button onClick={handleGuardarRecordatorio} className="btn-guardar">
-            Guardar
+          <button
+            disabled={!estaSeleccionadaLalista.current}
+            onClick={handleGuardarRecordatorio}
+            className="btn-guardar"
+          >
+            {!estaSeleccionadaLalista.current ? "Selecc lista" : "Guardar"}
           </button>
         </div>
         <label htmlFor="nota">Nota</label>
@@ -105,6 +123,7 @@ export default function NuevoRecordatorio() {
             onChange={handleForm}
             value={form.listaId}
           >
+            <option value="">-- Seleccionar --</option>
             {mapeoSeleccOpccion}
           </select>
         </div>
@@ -143,12 +162,20 @@ export default function NuevoRecordatorio() {
         </div>
 
         <label htmlFor="cargar-imagen">Cargar imagen</label>
-        <input
-          id="cargar-imagen"
-          type="file"
-          name="cargarImagen"
-          onChange={handleSelecImagen}
-        />
+        {form.imageUrl !== "" && <img src={form.imageUrl} alt="" />}
+        {!form.imageUrl ? (
+          <input
+            id="cargar-imagen"
+            type="file"
+            accept="image/*"
+            name="cargarImagen"
+            onChange={handleSelecImagen}
+          />
+        ) : (
+          <button onClick={HandleBorrarImg} className="borrar-img">
+            Borrar Img
+          </button>
+        )}
       </div>
     </div>
   );

@@ -1,24 +1,23 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listasEnDB, recordatorioEnDB } from "../scripts/firebase";
-import { onValue, update } from "firebase/database";
+import { recordatorioEnDB } from "../scripts/firebase";
+import { update } from "firebase/database";
 import { ref as refST, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
-import { MisRecordatioContext } from "../scripts/DataContext";
+import { MisListaContext, MisRecordatioContext } from "../scripts/DataContext";
 
 export default function DetallesRecordatorio() {
   const params = useParams();
   const todosLosRecordatorios = useContext(MisRecordatioContext);
+  const listaContexto = useContext(MisListaContext);
 
   const filtrar = todosLosRecordatorios.filter(
     (recordatorio) => recordatorio[0] === params.id
   );
   const recordatorioId = filtrar[0][0];
-  console.log(recordatorioId);
 
   const [imagenSelec, setImagenSelec] = useState(null);
-  const [listas, setListas] = useState([]);
   const [form, setForm] = useState(filtrar[0][1]);
 
   const navegate = useNavigate();
@@ -52,19 +51,8 @@ export default function DetallesRecordatorio() {
     });
   }, [imagenSelec]);
 
-  // Obtener los nombres de las listas para mapear para el elemento selección de formulario
-  useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setListas(Object.entries(snapshot.val()));
-      } else {
-        setListas([]);
-      }
-    });
-    return cancelOnValue;
-  }, []);
   // Obtener listado de nombre de las listas para opciones en selección
-  const mapeoSeleccOpccion = listas.map((lista) => (
+  const mapeoSeleccOpccion = listaContexto.map((lista) => (
     <option key={lista[0]} value={lista[0]}>
       {lista[1].nombre}
     </option>
@@ -153,6 +141,7 @@ export default function DetallesRecordatorio() {
         <input
           id="cargar-imagen"
           type="file"
+          accept="image/*"
           name="cargarImagen"
           onChange={handleSelecImagen}
         />
