@@ -15,7 +15,7 @@ export default function DetallesLista() {
 
   function handleNuevoNombre(id, nuevoNombre) {
     const actualizar = {};
-    actualizar[`/recordatorio/${id}`] = { titulo: nuevoNombre };
+    actualizar[`/recordatorio/${id}/titulo`] = nuevoNombre;
     return update(refDB(db), actualizar);
   }
 
