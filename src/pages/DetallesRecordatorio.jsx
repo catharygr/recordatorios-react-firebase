@@ -3,7 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { recordatorioEnDB } from "../scripts/firebase";
 import { update } from "firebase/database";
-import { ref as refST, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref as refST,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
 import { MisListaContext, MisRecordatioContext } from "../scripts/DataContext";
 
@@ -52,7 +57,7 @@ export default function DetallesRecordatorio() {
   }, [imagenSelec]);
 
   function HandleBorrarImg() {
-    const fileRef = ref(imagesRef, form.imagenName);
+    const fileRef = refST(imagesRef, form.imagenName);
     deleteObject(fileRef).then(
       setForm((oldData) => ({
         ...oldData,
