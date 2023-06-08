@@ -136,6 +136,9 @@ body {
     helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
     sans-serif;
 }
+input::placeholder {
+  opacity: 30%;
+}
 
 /* *********************************** */
 /* HomeLayout*/

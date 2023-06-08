@@ -10,7 +10,7 @@ export default function EditarListas() {
 
   function handleNuevoNombre(id, nuevoNombre) {
     const actualizar = {};
-    actualizar[`/listas/${id}`] = { nombre: nuevoNombre };
+    actualizar[`/listas/${id}/nombre`] = nuevoNombre;
     return update(ref(db), actualizar);
   }
 

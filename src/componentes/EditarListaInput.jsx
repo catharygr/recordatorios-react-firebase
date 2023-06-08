@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MisRecordatioContext } from "../scripts/DataContext";
 
 export default function EditarListainput({
   lista,
@@ -10,12 +11,14 @@ export default function EditarListainput({
   const id = lista[0];
   const oldNombre = lista[1].nombre;
 
+  const contextoRecordatorios = useContext(MisRecordatioContext);
+
   const [nombreLista, setNombreLista] = useState(oldNombre);
   const [seEstaBorrando, setSeEstaBorrando] = useState(false);
 
-  let numRecordatorio = lista[1].recordatorios
-    ? Object.keys(lista[1]?.recordatorios).length
-    : 0;
+  const numRecordatorio = contextoRecordatorios.filter(
+    (recordatorio) => recordatorio[1].listaId === id
+  ).length;
 
   function handleListaNombre(e) {
     setNombreLista(e.target.value);
@@ -50,7 +53,12 @@ export default function EditarListainput({
         onClick={() => setSeEstaBorrando(!seEstaBorrando)}
         className={`${btnRedCancelar}delete-btn`}
       ></button>
-      <input type="text" value={nombreLista} onChange={handleListaNombre} />
+      <input
+        type="text"
+        value={nombreLista}
+        onChange={handleListaNombre}
+        placeholder="Escribe el nombre de la lista"
+      />
       <p className="lista-form--num-item">{numRecordatorio}</p>
     </div>
   );
