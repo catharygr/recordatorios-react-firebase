@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { MisRecordatioContext } from "../scripts/DataContext";
+import { Link } from "react-router-dom";
 
 export default function EditarListainput({
   lista,
@@ -60,6 +61,9 @@ export default function EditarListainput({
         placeholder="Escribe el nombre de la lista"
       />
       <p className="lista-form--num-item">{numRecordatorio}</p>
+      <Link to={`/lista/${id}`} className="tarjeta-recordatorio-flecha">
+        <img src="/assets/flecha-derecha.png" alt="Flecha" />
+      </Link>
     </div>
   );
 }
