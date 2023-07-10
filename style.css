@@ -498,3 +498,50 @@ button {
   grid-column: -1/-2;
   width: 30px;
 }
+
+/* Loguear */
+
+.loguear-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 3rem;
+  margin-inline: auto;
+  max-width: 412px;
+}
+
+.loguear-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.8rem;
+  width: 80%;
+  border: var(--border-radius);
+  background-color: var(--fondo-base);
+  color: var(--color-acentado);
+}
+
+.loguear-form label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.loguear-form input {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: var(--fondo-contraste);
+  color: var(--color);
+}
+
+.loguear-form button {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: var(--color-orange);
+  color: var(--fondo-contraste);
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+}

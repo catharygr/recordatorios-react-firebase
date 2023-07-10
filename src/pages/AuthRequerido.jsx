@@ -20,7 +20,11 @@ export default function AuthRequerido() {
   }, []);
 
   if (!estaLogueado) {
-    return <h1>Cargando...</h1>;
+    return (
+      <p style={{ width: "412px", marginBlock: "auto", color: "red" }}>
+        Verificando si el usuario está logueado...
+      </p>
+    );
   }
 
   return <Outlet />;
