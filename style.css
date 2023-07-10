@@ -149,7 +149,6 @@ input::placeholder {
   max-width: 412px;
   background-color: var(--fondo-base);
   height: 100dvh;
-  overflow: scroll;
 }
 
 button {
