@@ -47,7 +47,7 @@ export default function Loguear() {
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
         <button type="submit">Ingresar</button>
-        {error && <p className="loguear-form_error">{error}</p>}
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

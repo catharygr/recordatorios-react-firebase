@@ -5,6 +5,7 @@ import { listasEnDB, recordatorioEnDB } from "./firebase";
 
 export const MisListaContext = createContext();
 export const MisRecordatioContext = createContext();
+export const MisUidContext = createContext();
 
 export function ListaContext({ children }) {
   const [listState, setListState] = useState([]);
@@ -48,5 +49,17 @@ export function RecordatorioContext({ children }) {
     <MisRecordatioContext.Provider value={recordatorioState}>
       {children}
     </MisRecordatioContext.Provider>
+  );
+}
+
+// Contexto de uid del usuario
+
+export function UidContext({ children }) {
+  const [uidState, setUidState] = useState("");
+
+  return (
+    <MisUidContext.Provider value={{ uidState, setUidState }}>
+      {children}
+    </MisUidContext.Provider>
   );
 }

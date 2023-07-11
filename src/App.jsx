@@ -24,7 +24,6 @@ function App() {
             <Route path="recordatorio/:id" element={<DetallesRecordatorio />} />
           </Route>
         </Route>
-
         <Route path="/loguear" element={<Loguear />} />
       </Routes>
     </BrowserRouter>

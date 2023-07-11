@@ -546,7 +546,7 @@ button {
   text-align: center;
 }
 
-.loguear-form_error {
+.error {
   color: var(--color-red);
   font-size: 0.8rem;
   font-weight: 600;

@@ -2,14 +2,16 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../scripts/firebase";
 import { signOut } from "firebase/auth";
+import { useState } from "react";
 
 export default function Ajustes() {
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   function handleSalir() {
     signOut(auth)
       .then(() => navigate("/loguear"))
       .catch((error) => {
-        console.log(error.message);
+        setError(error.message);
       });
   }
 
@@ -19,6 +21,7 @@ export default function Ajustes() {
       <button onClick={handleSalir} className="salir-btn">
         Salir
       </button>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }
