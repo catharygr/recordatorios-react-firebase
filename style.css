@@ -545,3 +545,9 @@ button {
   font-size: 1rem;
   text-align: center;
 }
+
+.loguear-form_error {
+  color: var(--color-red);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
