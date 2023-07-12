@@ -171,6 +171,9 @@ button {
   background-color: var(--fondo-contraste);
   height: 3rem;
 }
+.header-inicio {
+  color: var(--color-green);
+}
 
 /* *********************************** */
 /* EditarLista Componente
