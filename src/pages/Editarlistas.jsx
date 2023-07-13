@@ -4,18 +4,20 @@ import { MisListaContext } from "../scripts/DataContext";
 import { useContext } from "react";
 import { remove, update, ref } from "firebase/database";
 import { db } from "../scripts/firebase";
+import { MisUidContext } from "../scripts/DataContext";
 
 export default function EditarListas() {
   const listas = useContext(MisListaContext);
+  const { uidState } = useContext(MisUidContext);
 
   function handleNuevoNombre(id, nuevoNombre) {
     const actualizar = {};
-    actualizar[`/listas/${id}/nombre`] = nuevoNombre;
+    actualizar[`/listas/${uidState}/${id}/nombre`] = nuevoNombre;
     return update(ref(db), actualizar);
   }
 
   function borrarLista(id) {
-    remove(ref(db, `/listas/${id}`));
+    remove(ref(db, `/listas/${uidState}/${id}`));
   }
 
   const mapeo = listas.map((lista) => (

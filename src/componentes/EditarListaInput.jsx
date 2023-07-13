@@ -31,7 +31,7 @@ export default function EditarListainput({
     }
     const timeOut = setTimeout(() => {
       handleNuevoNombre(id, nombreLista);
-    }, 2000);
+    }, 500);
     return () => clearTimeout(timeOut);
   }, [nombreLista]);
 
@@ -41,7 +41,7 @@ export default function EditarListainput({
       return;
     }
 
-    const cancelarTimeOut = setTimeout(() => borrarLista(id), 3000);
+    const cancelarTimeOut = setTimeout(() => borrarLista(id), 2000);
 
     return () => clearTimeout(cancelarTimeOut);
   }, [seEstaBorrando]);

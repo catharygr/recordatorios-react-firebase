@@ -1,23 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
-import { onValue } from "firebase/database";
-import { listasEnDB, recordatorioEnDB } from "./firebase";
+import { createContext, useEffect, useState, useContext } from "react";
+import { onValue, ref as refDB } from "firebase/database";
+import { recordatorioEnDB, db } from "./firebase";
 
 export const MisListaContext = createContext();
 export const MisRecordatioContext = createContext();
 export const MisUidContext = createContext();
 
 export function ListaContext({ children }) {
+  const { uidState } = useContext(MisUidContext);
   const [listState, setListState] = useState([]);
 
   useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setListState(Object.entries(snapshot.val()));
-      } else {
-        setListState([]);
+    const cancelOnValue = onValue(
+      refDB(db, `/listas/${uidState}`),
+      function (snapshot) {
+        if (snapshot.val()) {
+          setListState(Object.entries(snapshot.val()));
+        } else {
+          setListState([]);
+        }
       }
-    });
+    );
     return cancelOnValue;
   }, []);
 

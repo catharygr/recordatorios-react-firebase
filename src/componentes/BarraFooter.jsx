@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
-import { listasEnDB } from "../scripts/firebase";
 import { push } from "firebase/database";
+import { ref as refDB } from "firebase/database";
+import { db } from "../scripts/firebase";
+import { useContext } from "react";
+import { MisUidContext } from "../scripts/DataContext";
 
 export default function BarraFooter() {
+  const { uidState } = useContext(MisUidContext);
+
   function handleNuevaLista() {
-    push(listasEnDB, {
+    push(refDB(db, `/listas/${uidState}`), {
       nombre: "",
       usuarioId: "",
     });
