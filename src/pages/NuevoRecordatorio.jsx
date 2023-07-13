@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState, useRef } from "react";
 import { imagesRef } from "../scripts/storage";
-import { recordatorioEnDB } from "../scripts/firebase";
-import { push } from "firebase/database";
+import { push, ref as refDB } from "firebase/database";
+import { db } from "../scripts/firebase";
 import {
   ref,
   uploadBytes,
@@ -10,10 +10,11 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import { MisListaContext } from "../scripts/DataContext";
+import { MisListaContext, MisUidContext } from "../scripts/DataContext";
 
 export default function NuevoRecordatorio() {
   const listaContexto = useContext(MisListaContext);
+  const { uidState } = useContext(MisUidContext);
   const [imagenSelec, setImagenSelec] = useState(null);
   const [form, setForm] = useState({
     usuarioId: "",
@@ -64,7 +65,7 @@ export default function NuevoRecordatorio() {
       });
     });
   }, [imagenSelec]);
-
+  // Funcion para borrar imagen
   function HandleBorrarImg() {
     const fileRef = ref(imagesRef, form.imagenName);
     deleteObject(fileRef).then(
@@ -82,9 +83,11 @@ export default function NuevoRecordatorio() {
       {lista[1].nombre}
     </option>
   ));
-
+  // Funcion para guardar recordatorio en la base de datos
   function handleGuardarRecordatorio() {
-    push(recordatorioEnDB, form).then(navegate(`/lista/${form.listaId}`));
+    push(refDB(db, `/recordatorios/${uidState}`), form).then(
+      navegate(`/lista/${form.listaId}`)
+    );
   }
 
   return (

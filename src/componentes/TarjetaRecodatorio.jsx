@@ -14,6 +14,7 @@ export default function TarjetaRecordatorio({
   const [nombreDeRecordatotio, setNombreDeRecordatio] = useState(oldTitulo);
   const [seEstaBorrando, setSeEstaBorrando] = useState(false);
 
+  // Funcion para cambiar el nombre
   function handleNombreDeRecordatorio(e) {
     setNombreDeRecordatio(e.target.value);
   }
@@ -24,7 +25,7 @@ export default function TarjetaRecordatorio({
     }
     const timeOut = setTimeout(() => {
       handleNuevoNombre(id, nombreDeRecordatotio);
-    }, 2000);
+    }, 500);
     return () => clearTimeout(timeOut);
   }, [nombreDeRecordatotio]);
 
@@ -34,7 +35,7 @@ export default function TarjetaRecordatorio({
       return;
     }
 
-    const cancelarTimeOut = setTimeout(() => borrarRecordatorio(id), 3000);
+    const cancelarTimeOut = setTimeout(() => borrarRecordatorio(id), 2000);
 
     return () => clearTimeout(cancelarTimeOut);
   }, [seEstaBorrando]);

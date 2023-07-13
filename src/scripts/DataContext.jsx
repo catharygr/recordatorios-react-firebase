@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState, useContext } from "react";
 import { onValue, ref as refDB } from "firebase/database";
-import { recordatorioEnDB, db } from "./firebase";
+import { db } from "./firebase";
 
 export const MisListaContext = createContext();
 export const MisRecordatioContext = createContext();
@@ -12,6 +12,7 @@ export function ListaContext({ children }) {
   const { uidState } = useContext(MisUidContext);
   const [listState, setListState] = useState([]);
 
+  // Contexto de lista
   useEffect(() => {
     const cancelOnValue = onValue(
       refDB(db, `/listas/${uidState}`),
@@ -26,7 +27,6 @@ export function ListaContext({ children }) {
     return cancelOnValue;
   }, []);
 
-  // Contexto de lista
   return (
     <MisListaContext.Provider value={listState}>
       {children}
@@ -38,15 +38,19 @@ export function ListaContext({ children }) {
 
 export function RecordatorioContext({ children }) {
   const [recordatorioState, setRecordatorioState] = useState([]);
+  const { uidState } = useContext(MisUidContext);
 
   useEffect(() => {
-    const cancelOnValue = onValue(recordatorioEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setRecordatorioState(Object.entries(snapshot.val()));
-      } else {
-        setRecordatorioState([]);
+    const cancelOnValue = onValue(
+      refDB(db, `/recordatorios/${uidState}`),
+      function (snapshot) {
+        if (snapshot.val()) {
+          setRecordatorioState(Object.entries(snapshot.val()));
+        } else {
+          setRecordatorioState([]);
+        }
       }
-    });
+    );
     return cancelOnValue;
   }, []);
 
