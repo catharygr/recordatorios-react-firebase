@@ -62,7 +62,7 @@ export default function EditarListainput({
       />
       <p className="lista-form--num-item">{numRecordatorio}</p>
       <Link to={`/lista/${id}`} className="tarjeta-recordatorio-flecha">
-        <img src="/assets/flecha-derecha.png" alt="Flecha" />
+        <img src="/assets/flecha-derecha.svg" alt="Flecha" />
       </Link>
     </div>
   );
