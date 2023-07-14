@@ -36,6 +36,7 @@ export default function NuevoRecordatorio() {
   // console.log(form);
   const navegate = useNavigate();
   // Manejar formulario y su State via onChange
+
   function handleForm(e) {
     const { name, value, checked, type } = e.target;
 
@@ -44,6 +45,7 @@ export default function NuevoRecordatorio() {
       [name]: type === "checkbox" ? checked : value,
     }));
   }
+
   //Guardar la imagen seleccionada en imagenSelec
   function handleSelecImagen(e) {
     setImagenSelec(e.target.files[0]);
