@@ -22,9 +22,7 @@ export default function DetallesLista() {
     return update(refDB(db), actualizar);
   }
   // Funcion para borrar recordatorios y su imagen
-  function borrarRecordatorio({ id, imagenName }) {
-    console.log(imagenName);
-
+  function borrarRecordatorio(id, imagenName) {
     if (imagenName === "") {
       remove(refDB(db, `/recordatorios/${uidState}/${id}`));
     } else {
