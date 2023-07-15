@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
-import { imagesRef } from "../scripts/storage";
+import { storageRef } from "../scripts/storage";
 import { db } from "../scripts/firebase";
 import { update, ref as refDB } from "firebase/database";
 import {
@@ -48,6 +49,7 @@ export default function DetallesRecordatorio() {
   // Obtener el URl de descarga y gurdarlo en el state del recordatorio
   useEffect(() => {
     if (!imagenSelec) return;
+    const imagesRef = refST(storageRef, `/${uidState}`);
 
     const fileRef = refST(imagesRef, imagenSelec?.name);
 
@@ -56,6 +58,7 @@ export default function DetallesRecordatorio() {
         setForm((oldData) => ({
           ...oldData,
           imageUrl: url,
+          imagenName: imagenSelec?.name,
         }));
       });
     });
@@ -63,6 +66,7 @@ export default function DetallesRecordatorio() {
 
   //Funcion para borrar imagen
   function HandleBorrarImg() {
+    const imagesRef = refST(storageRef, `/${uidState}`);
     const fileRef = refST(imagesRef, form.imagenName);
     deleteObject(fileRef).then(
       setForm((oldData) => ({

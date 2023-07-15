@@ -9,7 +9,6 @@ export default function TarjetaRecordatorio({
   handleNuevoNombre,
   borrarRecordatorio,
 }) {
-  console.log(recordatorio);
   const oldTitulo = recordatorio.titulo;
   const [nombreDeRecordatotio, setNombreDeRecordatio] = useState(oldTitulo);
   const [seEstaBorrando, setSeEstaBorrando] = useState(false);
