@@ -34,7 +34,10 @@ export default function TarjetaRecordatorio({
       return;
     }
 
-    const cancelarTimeOut = setTimeout(() => borrarRecordatorio(id), 2000);
+    const cancelarTimeOut = setTimeout(
+      () => borrarRecordatorio(id, recordatorio?.imagenName),
+      2000
+    );
 
     return () => clearTimeout(cancelarTimeOut);
   }, [seEstaBorrando]);

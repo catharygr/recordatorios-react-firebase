@@ -2,6 +2,8 @@ import TarjetaRecordatorio from "../componentes/TarjetaRecodatorio";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { MisRecordatioContext, MisUidContext } from "../scripts/DataContext";
+import { ref as refST, deleteObject } from "firebase/storage";
+import { storageRef } from "../scripts/storage";
 import { ref as refDB, remove, update } from "firebase/database";
 import { db } from "../scripts/firebase";
 
@@ -19,9 +21,19 @@ export default function DetallesLista() {
     actualizar[`/recordatorios/${uidState}/${id}/titulo`] = nuevoNombre;
     return update(refDB(db), actualizar);
   }
-  // Funcion para borrar recordatorios
-  function borrarRecordatorio(id) {
-    remove(refDB(db, `/recordatorios/${uidState}/${id}`));
+  // Funcion para borrar recordatorios y su imagen
+  function borrarRecordatorio({ id, imagenName }) {
+    console.log(imagenName);
+
+    if (imagenName === "") {
+      remove(refDB(db, `/recordatorios/${uidState}/${id}`));
+    } else {
+      const imagesRef = refST(storageRef, `/${uidState}`);
+      const fileRef = refST(imagesRef, imagenName);
+      deleteObject(fileRef).then(
+        remove(refDB(db, `/recordatorios/${uidState}/${id}`))
+      );
+    }
   }
 
   const mapeo = filtrar.map((recordatorio) => (
