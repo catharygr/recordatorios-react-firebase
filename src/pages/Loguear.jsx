@@ -15,21 +15,46 @@ export default function Loguear() {
   const [btnDesabilitado, setBtnDesabilitado] = useState(true);
   const [estaRegistrado, setEstaRegistrado] = useState(true);
   const [error, setError] = useState("");
+  const [repetirPasswordForm, setRepetirPasswordForm] = useState("");
+  const [repetirPasswordString, setRepetirPasswordString] = useState("");
+
   const navigate = useNavigate();
   const btnRef = useRef();
 
+  // Función para chequear que las contraseñas coinciden
+  function handleRepetirPassword(e) {
+    const chequearPassword = e.target.value;
+
+    if (chequearPassword !== form.password) {
+      btnRef.current.disabled = true;
+      setRepetirPasswordString("No coinciden");
+      setBtnDesabilitado(true);
+    } else if (chequearPassword === form.password) {
+      btnRef.current.disabled = false;
+      setRepetirPasswordString("Coinciden");
+      setBtnDesabilitado(false);
+    }
+
+    setRepetirPasswordForm(chequearPassword);
+  }
+
+  // Función para limpiar el formulario
   function limpirarForm() {
     setForm({
       email: "",
       password: "",
     });
+    setRepetirPasswordForm("");
+    setRepetirPasswordString("");
   }
 
+  // Función para cambiar entre loguear y registrar
   function handleRegistrar() {
     setEstaRegistrado(!estaRegistrado);
     limpirarForm();
   }
 
+  // Función para loguear o registrar
   function handleSubmit(e) {
     e.preventDefault();
     btnRef.current.disabled = true;
@@ -83,6 +108,28 @@ export default function Loguear() {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
+        {!estaRegistrado && (
+          <>
+            <label htmlFor={`${id}-repetirPassword`}>
+              Repetir contraseña:{" "}
+              {
+                <span style={{ color: "var(--color)" }}>
+                  {repetirPasswordString}
+                </span>
+              }
+            </label>
+            <input
+              required={true}
+              value={repetirPasswordForm}
+              type="password"
+              id={`${id}-repetirPassword`}
+              placeholder="Rellene su password"
+              minLength={8}
+              onChange={handleRepetirPassword}
+            />
+          </>
+        )}
+
         <button disabled={btnDesabilitado} ref={btnRef}>
           {estaRegistrado ? "Loguear" : "Regístrate"}
         </button>
