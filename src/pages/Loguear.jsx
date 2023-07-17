@@ -39,10 +39,10 @@ export default function Loguear() {
         setError(error.message);
       });
 
-    setForm({
-      email: "",
-      password: "",
-    });
+    // setForm({
+    //   email: "",
+    //   password: "",
+    // });
   }
 
   if (form.email && form.password && btnDesabilitado) setBtnDesabilitado(false);
