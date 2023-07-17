@@ -1,5 +1,4 @@
-import { useId } from "react";
-import { useState } from "react";
+import { useState, useRef, useId } from "react";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -17,17 +16,31 @@ export default function Loguear() {
   const [estaRegistrado, setEstaRegistrado] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const btnRef = useRef();
+
+  function limpirarForm() {
+    setForm({
+      email: "",
+      password: "",
+    });
+  }
 
   function handleRegistrar() {
     setEstaRegistrado(!estaRegistrado);
+    limpirarForm();
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    btnRef.current.disabled = true;
+
     if (!estaRegistrado) {
       createUserWithEmailAndPassword(auth, form.email, form.password)
         .then(() => navigate("/"))
         .catch((error) => {
+          btnRef.current.disabled = false;
+          setBtnDesabilitado(false);
+          limpirarForm();
           setError(error.message);
         });
       return;
@@ -36,13 +49,11 @@ export default function Loguear() {
     signInWithEmailAndPassword(auth, form.email, form.password)
       .then(() => navigate("/"))
       .catch((error) => {
+        btnRef.current.disabled = false;
+        setBtnDesabilitado(false);
+        limpirarForm();
         setError(error.message);
       });
-
-    // setForm({
-    //   email: "",
-    //   password: "",
-    // });
   }
 
   if (form.email && form.password && btnDesabilitado) setBtnDesabilitado(false);
@@ -72,7 +83,7 @@ export default function Loguear() {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button disabled={btnDesabilitado} type="submit">
+        <button disabled={btnDesabilitado} ref={btnRef}>
           {estaRegistrado ? "Loguear" : "Regístrate"}
         </button>
         <p onClick={handleRegistrar} className="registar-enlace">
