@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MisRecordatioContext } from "../scripts/DataContext";
 import { useContext } from "react";
+import { ArrowRight } from "react-feather";
 
 /* eslint-disable react/prop-types */
 export default function HomeListaTarjeta({ lista }) {
@@ -15,11 +16,7 @@ export default function HomeListaTarjeta({ lista }) {
       <div className="home-lista-tarjeta">
         <h3>{lista[1]?.nombre}</h3>
         <p className="home-lista-tarjeta-num">{numRecordatorio}</p>
-        <img
-          style={{ height: "30px" }}
-          src="/assets/flecha-derecha.svg"
-          alt="Flecha para la derecha"
-        />
+        <ArrowRight color="var(--color-acentado)" />
       </div>
     </Link>
   );

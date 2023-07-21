@@ -193,7 +193,7 @@ button {
 /* *********************************** */
 .lista-form-componente {
   display: grid;
-  grid-template-columns: 40px auto 40px 40px;
+  grid-template-columns: 40px auto 40px 30px;
   align-items: center;
   background-color: var(--fondo-contraste);
   margin-inline: 1rem;
@@ -217,6 +217,12 @@ button {
 .lista-form--num-item {
   justify-self: end;
   font-size: 1.3rem;
+}
+
+/* Este icono se usa en la lista y en el recordatotio */
+.icono-flecha {
+  justify-self: end;
+  grid-column: -1/-2;
 }
 
 /* *********************************** */
@@ -486,21 +492,14 @@ button {
   background-color: var(--fondo-contraste);
   border-radius: var(--border-radius);
   display: grid;
-  grid-template-columns: 40px auto 40px 40px;
+  grid-template-columns: 40px auto 30px 30px;
   align-items: center;
-
   padding: 1rem;
 }
 
 .tarjeta-recordatorio-marcado {
   justify-self: end;
   grid-column: -2/-3;
-}
-
-.tarjeta-recordatorio-flecha {
-  justify-self: end;
-  grid-column: -1/-2;
-  width: 30px;
 }
 
 /* Loguear */

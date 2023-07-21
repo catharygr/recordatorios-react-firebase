@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "react-feather";
 
 export default function TarjetaRecordatorio({
   recordatorio,
@@ -63,8 +64,8 @@ export default function TarjetaRecordatorio({
           alt="Bandera"
         />
       )}
-      <Link to={`/recordatorio/${id}`} className="tarjeta-recordatorio-flecha">
-        <img src="/assets/flecha-derecha.svg" alt="Flecha" />
+      <Link to={`/recordatorio/${id}`} className="icono-flecha">
+        <ArrowRight color="var(--color-acentado)" />
       </Link>
     </div>
   );

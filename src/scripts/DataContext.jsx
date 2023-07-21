@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import { onValue, ref as refDB } from "firebase/database";
 import { db } from "./firebase";
 
@@ -66,9 +66,12 @@ export function RecordatorioContext({ children }) {
 export function UidContext({ children }) {
   const [uidState, setUidState] = useState("");
 
+  const value = React.useMemo(
+    () => ({ uidState, setUidState }),
+    [uidState, setUidState]
+  );
+
   return (
-    <MisUidContext.Provider value={{ uidState, setUidState }}>
-      {children}
-    </MisUidContext.Provider>
+    <MisUidContext.Provider value={value}>{children}</MisUidContext.Provider>
   );
 }

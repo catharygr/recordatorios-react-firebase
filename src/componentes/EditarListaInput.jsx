@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { MisRecordatioContext } from "../scripts/DataContext";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "react-feather";
 
 export default function EditarListainput({
   lista,
@@ -61,8 +62,8 @@ export default function EditarListainput({
         placeholder="Escribe el nombre de la lista"
       />
       <p className="lista-form--num-item">{numRecordatorio}</p>
-      <Link to={`/lista/${id}`} className="tarjeta-recordatorio-flecha">
-        <img src="/assets/flecha-derecha.svg" alt="Flecha" />
+      <Link to={`/lista/${id}`} className="icono-flecha">
+        <ArrowRight color="var(--color-acentado)" />
       </Link>
     </div>
   );
