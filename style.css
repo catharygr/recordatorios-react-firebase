@@ -440,10 +440,6 @@ button {
   align-items: center;
 }
 
-.tablero-tarjeta--img {
-  height: 1.7rem;
-}
-
 .tablero-tarjeta--num {
   font-size: 1.7rem;
   font-weight: 700;

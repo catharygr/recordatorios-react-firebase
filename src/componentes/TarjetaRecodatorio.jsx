@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "react-feather";
+import { ArrowRight, Flag } from "react-feather";
 
 export default function TarjetaRecordatorio({
   recordatorio,
@@ -58,10 +58,14 @@ export default function TarjetaRecordatorio({
         onChange={handleNombreDeRecordatorio}
       />
       {recordatorio.marcado && (
-        <img
+        // <img
+        //   className="tarjeta-recordatorio-marcado"
+        //   src="/assets/bandera.png"
+        //   alt="Bandera"
+        // />
+        <Flag
           className="tarjeta-recordatorio-marcado"
-          src="/assets/bandera.png"
-          alt="Bandera"
+          color="var(--color-red)"
         />
       )}
       <Link to={`/recordatorio/${id}`} className="icono-flecha">
