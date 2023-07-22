@@ -20,7 +20,7 @@ export default function Home() {
   const listas = useContext(MisListaContext);
   const recordatorios = useContext(MisRecordatioContext);
   const uidState = useContext(MisUidContext);
-  const [homeTipo, setHomeTipo] = useState("listas");
+  const [homeTipo, setHomeTipo] = useState("marcados");
 
   // Funciones para actualizar y borrar recordatorios
   function handleNuevoNombre(id, nuevoNombre) {
@@ -56,6 +56,33 @@ export default function Home() {
       borrarRecordatorio={borrarRecordatorio}
     />
   ));
+
+  function handleFiltrar() {
+    const filteredRecordatorios = recordatorios.filter((recordatorio) => {
+      if (homeTipo === "marcados") {
+        return recordatorio[1].marcado === true;
+      }
+      if (homeTipo === "hoy") {
+        return recordatorio[1].date === "today";
+      }
+      if (homeTipo === "proximos") {
+        return recordatorio[1].date === "next3days";
+      }
+      return null;
+    });
+    console.log(filteredRecordatorios);
+    return filteredRecordatorios.map((recordatorio) => {
+      return (
+        <TarjetaRecordatorio
+          key={recordatorio[0]}
+          recordatorio={recordatorio[1]}
+          id={recordatorio[0]}
+          handleNuevoNombre={handleNuevoNombre}
+          borrarRecordatorio={borrarRecordatorio}
+        />
+      );
+    });
+  }
 
   return (
     <main className="home-container">
@@ -94,6 +121,9 @@ export default function Home() {
         <h2 className="listas-titulos">Mis listas</h2>
         {homeTipo === "listas" && misListas}
         {homeTipo === "recordatorios" && todosLosRecordatorios}
+        {homeTipo === "marcados" && handleFiltrar()}
+        {homeTipo === "hoy" && handleFiltrar()}
+        {homeTipo === "proximos" && handleFiltrar()}
       </section>
     </main>
   );
