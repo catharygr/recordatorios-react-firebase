@@ -1,22 +1,68 @@
 import HomeListaTarjeta from "../componentes/HomeListaTarjeta";
 import TableroTarjeta from "../componentes/TableroTarjeta";
+import TarjetaRecordatorio from "../componentes/TarjetaRecodatorio";
 import { Flag, BookOpen, Watch, Calendar } from "react-feather";
+import { ref as refST, deleteObject } from "firebase/storage";
+import { storageRef } from "../scripts/storage";
+import { ref as refDB, remove, update } from "firebase/database";
+import { db } from "../scripts/firebase";
+import { useState } from "react";
 
 import { useContext } from "react";
-import { MisListaContext } from "../scripts/DataContext";
+import {
+  MisListaContext,
+  MisRecordatioContext,
+  MisUidContext,
+} from "../scripts/DataContext";
+// Listas,recordatorios, marcados, hoy, proximos
 
 export default function Home() {
   const listas = useContext(MisListaContext);
+  const recordatorios = useContext(MisRecordatioContext);
+  const uidState = useContext(MisUidContext);
+  const [homeTipo, setHomeTipo] = useState("listas");
 
-  const mapeo = listas.map((lista) => (
+  // Funciones para actualizar y borrar recordatorios
+  function handleNuevoNombre(id, nuevoNombre) {
+    const actualizar = {};
+    actualizar[`/recordatorios/${uidState}/${id}/titulo`] = nuevoNombre;
+    return update(refDB(db), actualizar);
+  }
+  // Funcion para borrar recordatorios y su imagen
+  function borrarRecordatorio(id, imagenName) {
+    if (imagenName === "") {
+      remove(refDB(db, `/recordatorios/${uidState}/${id}`));
+    } else {
+      const imagesRef = refST(storageRef, `/${uidState}`);
+      const fileRef = refST(imagesRef, imagenName);
+      deleteObject(fileRef).then(
+        remove(refDB(db, `/recordatorios/${uidState}/${id}`))
+      );
+    }
+  }
+
+  // Por defecto se muestran todas las listas
+  const misListas = listas.map((lista) => (
     <HomeListaTarjeta key={lista[0]} lista={lista} />
   ));
+
+  // Para mostrar todos los recordatorios
+  const todosLosRecordatorios = recordatorios.map((recordatorio) => (
+    <TarjetaRecordatorio
+      key={recordatorio[0]}
+      recordatorio={recordatorio[1]}
+      id={recordatorio[0]}
+      handleNuevoNombre={handleNuevoNombre}
+      borrarRecordatorio={borrarRecordatorio}
+    />
+  ));
+
   return (
     <main className="home-container">
       <section className="tablero">
         <TableroTarjeta
           img={<BookOpen color="var(--color-green)" />}
-          num="28"
+          num={recordatorios.length}
           text="Recordatorios"
           date={false}
           color="var(--color)"
@@ -46,7 +92,8 @@ export default function Home() {
 
       <section className="home-lista-container">
         <h2 className="listas-titulos">Mis listas</h2>
-        {mapeo}
+        {homeTipo === "listas" && misListas}
+        {homeTipo === "recordatorios" && todosLosRecordatorios}
       </section>
     </main>
   );
