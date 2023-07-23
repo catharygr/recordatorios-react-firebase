@@ -1,16 +1,22 @@
 import BarraFooter from "../componentes/BarraFooter";
 import BarraHeader from "../componentes/BarraHeader";
 import { Outlet } from "react-router-dom";
-import { ListaContext, RecordatorioContext } from "../scripts/DataContext";
+import {
+  ListaContext,
+  RecordatorioContext,
+  TipoHomeContext,
+} from "../scripts/DataContext";
 
 export default function HomeLayout() {
   return (
     <main className="main-container">
       <ListaContext>
         <RecordatorioContext>
-          <BarraHeader />
-          <Outlet />
-          <BarraFooter />
+          <TipoHomeContext>
+            <BarraHeader />
+            <Outlet />
+            <BarraFooter />
+          </TipoHomeContext>
         </RecordatorioContext>
       </ListaContext>
     </main>

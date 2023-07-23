@@ -6,12 +6,13 @@ import { ref as refST, deleteObject } from "firebase/storage";
 import { storageRef } from "../scripts/storage";
 import { ref as refDB, remove, update } from "firebase/database";
 import { db } from "../scripts/firebase";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 import {
   MisListaContext,
   MisRecordatioContext,
   MisUidContext,
+  MisTipoHomeContext,
 } from "../scripts/DataContext";
 // Listas,recordatorios, marcados, hoy, proximos
 
@@ -19,7 +20,7 @@ export default function Home() {
   const listas = useContext(MisListaContext);
   const recordatorios = useContext(MisRecordatioContext);
   const { uidState } = useContext(MisUidContext);
-  const [homeTipo, setHomeTipo] = useState("hoy");
+  const { homeTipo, setHomeTipo } = useContext(MisTipoHomeContext);
 
   // Funciones para actualizar y borrar recordatorios
   function handleNuevoNombre(id, nuevoNombre) {
@@ -68,23 +69,35 @@ export default function Home() {
     return diffDays <= 3;
   }
 
+  // Filtrar marcados
+  const marcadas = recordatorios.filter((recordatorio) => {
+    return recordatorio[1].marcado === true;
+  });
+  // Filtrar hoy
+  const hoy = recordatorios.filter((recordatorio) => {
+    const fechaEnDB = new Date(recordatorio[1].fecha).toLocaleDateString();
+    const fechaHoy = new Date().toLocaleDateString();
+    return fechaEnDB === fechaHoy;
+  });
+  // Filtrar proximos
+  const proximos = recordatorios.filter((recordatorio) => {
+    const fechaEnDB = new Date(recordatorio[1].fecha);
+    const fechaHoy = new Date();
+    return compareDates(fechaHoy, fechaEnDB);
+  });
+
   function handleFiltrar() {
-    const filteredRecordatorios = recordatorios.filter((recordatorio) => {
-      if (homeTipo === "marcados") {
-        return recordatorio[1].marcado === true;
-      }
-      if (homeTipo === "hoy") {
-        const fechaEnDB = new Date(recordatorio[1].fecha).toLocaleDateString();
-        const fechaHoy = new Date().toLocaleDateString();
-        return fechaEnDB === fechaHoy;
-      }
-      if (homeTipo === "proximos") {
-        const fechaEnDB = new Date(recordatorio[1].fecha);
-        const fechaHoy = new Date();
-        return compareDates(fechaHoy, fechaEnDB);
-      }
-      return null;
-    });
+    let filteredRecordatorios = [];
+
+    if (homeTipo === "marcados") {
+      filteredRecordatorios = marcadas;
+    }
+    if (homeTipo === "hoy") {
+      filteredRecordatorios = hoy;
+    }
+    if (homeTipo === "proximos") {
+      filteredRecordatorios = proximos;
+    }
 
     return filteredRecordatorios.map((recordatorio) => {
       return (
@@ -108,27 +121,31 @@ export default function Home() {
           text="Recordatorios"
           date={false}
           color="var(--color)"
+          onClick={() => setHomeTipo("recordatorios")}
         />
         <TableroTarjeta
           img={<Flag color="var(--color-red)" />}
-          num="7"
+          num={marcadas.length}
           text="Marcados"
           date={false}
           color="var(--color)"
+          onClick={() => setHomeTipo("marcados")}
         />
         <TableroTarjeta
           img={<Watch color="var(--color-orange)" />}
-          num="3"
+          num={hoy.length}
           text="Fecha: 26/05/23"
           date={true}
           color="var(--color)"
+          onClick={() => setHomeTipo("hoy")}
         />
         <TableroTarjeta
           img={<Calendar color="var(--color-acentado)" />}
-          num="14"
+          num={proximos.length}
           text="Próx 3 dias"
           date={false}
           color="var(--color)"
+          onClick={() => setHomeTipo("proximos")}
         />
       </section>
 
@@ -137,8 +154,6 @@ export default function Home() {
         {homeTipo === "listas" && misListas}
         {homeTipo === "recordatorios" && todosLosRecordatorios}
         {(homeTipo === "marcados" || "hoy" || "proximos") && handleFiltrar()}
-        {/* {homeTipo === "hoy" && handleFiltrar()}
-        {homeTipo === "proximos" && handleFiltrar()} */}
       </section>
     </main>
   );

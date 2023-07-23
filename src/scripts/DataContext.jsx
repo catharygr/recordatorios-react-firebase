@@ -7,6 +7,7 @@ import { db } from "./firebase";
 export const MisListaContext = createContext();
 export const MisRecordatioContext = createContext();
 export const MisUidContext = createContext();
+export const MisTipoHomeContext = createContext();
 
 export function ListaContext({ children }) {
   const { uidState } = useContext(MisUidContext);
@@ -73,5 +74,22 @@ export function UidContext({ children }) {
 
   return (
     <MisUidContext.Provider value={value}>{children}</MisUidContext.Provider>
+  );
+}
+
+// Contexto de tipo de lista en home
+export function TipoHomeContext({ children }) {
+  // listas, recordatorios, marcados, hoy, proximos
+  const [homeTipo, setHomeTipo] = useState("listas");
+
+  const value = React.useMemo(
+    () => ({ homeTipo, setHomeTipo }),
+    [homeTipo, setHomeTipo]
+  );
+
+  return (
+    <MisTipoHomeContext.Provider value={value}>
+      {children}
+    </MisTipoHomeContext.Provider>
   );
 }
