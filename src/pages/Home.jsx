@@ -19,7 +19,7 @@ export default function Home() {
   const listas = useContext(MisListaContext);
   const recordatorios = useContext(MisRecordatioContext);
   const { uidState } = useContext(MisUidContext);
-  const [homeTipo, setHomeTipo] = useState("proximos");
+  const [homeTipo, setHomeTipo] = useState("hoy");
 
   // Funciones para actualizar y borrar recordatorios
   function handleNuevoNombre(id, nuevoNombre) {
@@ -58,20 +58,34 @@ export default function Home() {
     />
   ));
 
+  // Funcion que compara dos fechas para ver si hay menos de tres dias de diferencia
+  function compareDates(date1, date2) {
+    const date1Obj = new Date(date1);
+    const date2Obj = new Date(date2);
+    if (date1Obj > date2Obj) return false;
+    const diffTime = Math.abs(date2Obj - date1Obj);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 3;
+  }
+
   function handleFiltrar() {
     const filteredRecordatorios = recordatorios.filter((recordatorio) => {
       if (homeTipo === "marcados") {
         return recordatorio[1].marcado === true;
       }
       if (homeTipo === "hoy") {
-        return recordatorio[1].date === "today";
+        const fechaEnDB = new Date(recordatorio[1].fecha).toLocaleDateString();
+        const fechaHoy = new Date().toLocaleDateString();
+        return fechaEnDB === fechaHoy;
       }
       if (homeTipo === "proximos") {
-        return recordatorio[1].date === "next3days";
+        const fechaEnDB = new Date(recordatorio[1].fecha);
+        const fechaHoy = new Date();
+        return compareDates(fechaHoy, fechaEnDB);
       }
       return null;
     });
-    console.log(filteredRecordatorios);
+
     return filteredRecordatorios.map((recordatorio) => {
       return (
         <TarjetaRecordatorio
