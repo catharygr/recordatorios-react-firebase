@@ -6,9 +6,8 @@ import { ref as refST, deleteObject } from "firebase/storage";
 import { storageRef } from "../scripts/storage";
 import { ref as refDB, remove, update } from "firebase/database";
 import { db } from "../scripts/firebase";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-import { useContext } from "react";
 import {
   MisListaContext,
   MisRecordatioContext,
@@ -19,15 +18,17 @@ import {
 export default function Home() {
   const listas = useContext(MisListaContext);
   const recordatorios = useContext(MisRecordatioContext);
-  const uidState = useContext(MisUidContext);
-  const [homeTipo, setHomeTipo] = useState("marcados");
+  const { uidState } = useContext(MisUidContext);
+  const [homeTipo, setHomeTipo] = useState("proximos");
 
   // Funciones para actualizar y borrar recordatorios
   function handleNuevoNombre(id, nuevoNombre) {
+    console.log(id, nuevoNombre);
     const actualizar = {};
     actualizar[`/recordatorios/${uidState}/${id}/titulo`] = nuevoNombre;
     return update(refDB(db), actualizar);
   }
+
   // Funcion para borrar recordatorios y su imagen
   function borrarRecordatorio(id, imagenName) {
     if (imagenName === "") {
@@ -121,9 +122,9 @@ export default function Home() {
         <h2 className="listas-titulos">Mis listas</h2>
         {homeTipo === "listas" && misListas}
         {homeTipo === "recordatorios" && todosLosRecordatorios}
-        {homeTipo === "marcados" && handleFiltrar()}
-        {homeTipo === "hoy" && handleFiltrar()}
-        {homeTipo === "proximos" && handleFiltrar()}
+        {(homeTipo === "marcados" || "hoy" || "proximos") && handleFiltrar()}
+        {/* {homeTipo === "hoy" && handleFiltrar()}
+        {homeTipo === "proximos" && handleFiltrar()} */}
       </section>
     </main>
   );
