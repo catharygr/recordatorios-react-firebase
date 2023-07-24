@@ -97,7 +97,7 @@ export function TipoHomeContext({ children }) {
 
 // Contexto de color de UI
 export function ColorUIContext({ children }) {
-  const [colorUI, setColorUI] = useState("var(--fondo-base)");
+  const [colorUI, setColorUI] = useState("oscuro");
 
   // UseEffect para cambiar el color de la letra según el color de la UI
   useEffect(() => {
