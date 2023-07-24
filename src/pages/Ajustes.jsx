@@ -20,10 +20,10 @@ export default function Ajustes() {
   }
 
   function handleColorUI() {
-    if (colorUI === "oscuro") {
-      setColorUI("claro");
-    } else {
+    if (colorUI === "claro") {
       setColorUI("oscuro");
+    } else {
+      setColorUI("claro");
     }
   }
 
