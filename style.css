@@ -239,6 +239,12 @@ button {
   color: var(--color-red);
 }
 
+.salin-span {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 /* *********************************** */
 /* Barra Footer de añadir recordatorio */
 /* *********************************** */
@@ -264,7 +270,7 @@ button {
 
 .nuevo-recordatorio-container {
   margin-block: 2rem;
-  padding: 2rem;
+  padding: 2rem 1rem;
 }
 
 .lista-nuevo-recordatorio {

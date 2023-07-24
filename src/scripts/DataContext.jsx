@@ -8,6 +8,7 @@ export const MisListaContext = createContext();
 export const MisRecordatioContext = createContext();
 export const MisUidContext = createContext();
 export const MisTipoHomeContext = createContext();
+export const MiColorUIContext = createContext();
 
 export function ListaContext({ children }) {
   const { uidState } = useContext(MisUidContext);
@@ -91,5 +92,21 @@ export function TipoHomeContext({ children }) {
     <MisTipoHomeContext.Provider value={value}>
       {children}
     </MisTipoHomeContext.Provider>
+  );
+}
+
+// Contexto de color de UI
+export function ColorUIContext({ children }) {
+  const [colorUI, setColorUI] = useState("var(--color--oscuro)");
+
+  const value = React.useMemo(
+    () => ({ colorUI, setColorUI }),
+    [colorUI, setColorUI]
+  );
+
+  return (
+    <MiColorUIContext.Provider value={value}>
+      {children}
+    </MiColorUIContext.Provider>
   );
 }

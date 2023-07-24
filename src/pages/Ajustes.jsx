@@ -2,10 +2,14 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../scripts/firebase";
 import { signOut } from "firebase/auth";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LogOut } from "react-feather";
+import { MiColorUIContext } from "../scripts/DataContext";
 
 export default function Ajustes() {
   const [error, setError] = useState("");
+  const { colorUI, setColorUI } = useContext(MiColorUIContext);
+
   const navigate = useNavigate();
   function handleSalir() {
     signOut(auth)
@@ -15,11 +19,22 @@ export default function Ajustes() {
       });
   }
 
+  function handleColorUI() {
+    if (colorUI === "claro") {
+      setColorUI("oscuro");
+    } else {
+      setColorUI("claro");
+    }
+  }
+
   return (
     <div className="ajustes-container">
-      <button>Modo claro</button>
+      <button onClick={handleColorUI}>Modo claro</button>
       <button onClick={handleSalir} className="salir-btn">
-        Salir
+        <span className="salin-span">
+          {" "}
+          Salir <LogOut size={16} />
+        </span>
       </button>
       {error && <p className="error">{error}</p>}
     </div>
