@@ -113,8 +113,8 @@ meter {
 :root {
   --fondo-base: #222;
   --fondo-contraste: #4e4e4e;
-  --color-acentado: #00ffff;
   --color: #ffffff;
+  --color-acentado: #00ffff;
   --color-red: #ff0000;
   --color-orange: #ff8a00;
   --color-green: #05ff00;

@@ -97,7 +97,21 @@ export function TipoHomeContext({ children }) {
 
 // Contexto de color de UI
 export function ColorUIContext({ children }) {
-  const [colorUI, setColorUI] = useState("var(--color--oscuro)");
+  const [colorUI, setColorUI] = useState("var(--fondo-base)");
+
+  // UseEffect para cambiar el color de la letra según el color de la UI
+  useEffect(() => {
+    const root = document.querySelector(":root");
+    root.style.setProperty("--color", colorUI === "claro" ? "#ffffff" : "#222");
+    root.style.setProperty(
+      "--fondo-base",
+      colorUI === "claro" ? "#222" : "#fff"
+    );
+    root.style.setProperty(
+      "--fondo-contraste",
+      colorUI === "claro" ? "#4e4e4e" : "#bababa"
+    );
+  }, [colorUI]);
 
   const value = React.useMemo(
     () => ({ colorUI, setColorUI }),
