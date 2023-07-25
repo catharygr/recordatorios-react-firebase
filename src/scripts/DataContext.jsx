@@ -104,11 +104,15 @@ export function ColorUIContext({ children }) {
     const root = document.querySelector(":root");
     root.style.setProperty(
       "--fondo-base",
-      colorUI === "oscuro" ? "#222" : "#fff"
+      colorUI === "oscuro" ? "#222" : "#bababa"
+    );
+    root.style.setProperty(
+      "--color-acentado",
+      colorUI === "oscuro" ? "#00ffff" : "#2175de"
     );
     root.style.setProperty(
       "--fondo-contraste",
-      colorUI === "oscuro" ? "#4e4e4e" : "#bababa"
+      colorUI === "oscuro" ? "#4e4e4e" : "#ffffff"
     );
     root.style.setProperty(
       "--color",
