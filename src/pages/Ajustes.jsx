@@ -29,7 +29,9 @@ export default function Ajustes() {
 
   return (
     <div className="ajustes-container">
-      <button onClick={handleColorUI}>Modo claro</button>
+      <button onClick={handleColorUI}>
+        {colorUI === "oscuro" ? "Modo claro" : "Modo oscuro"}
+      </button>
       <button onClick={handleSalir} className="salir-btn">
         <span className="salin-span">
           {" "}
